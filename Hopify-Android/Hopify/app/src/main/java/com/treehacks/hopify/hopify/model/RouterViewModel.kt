@@ -13,8 +13,6 @@ class RouterViewModel {
     private val loadingRelay: Relay<Unit> = PublishRelay.create<Unit>()
     val interestContinueClicked: Relay<List<Interest>> = PublishRelay.create<List<Interest>>()
     val questionnaireContinueClicked: Relay<QuestionnaireViewModel> = PublishRelay.create<QuestionnaireViewModel>()
-    val shareLaunchRelay: Relay<Unit> = PublishRelay.create<Unit>()
-    val shareRelay: Relay<Unit> = PublishRelay.create<Unit>()
 
     private var state = OnboardingState()
 
@@ -51,8 +49,6 @@ class RouterViewModel {
                     submitDataRelay.accept(Unit)
                     Screens.LOADING
                 },
-                shareLaunchRelay.map { Screens.SHARE },
-                shareRelay.map { Screens.MAIN_MAP }
         ).startWith(Screens.ONBOARDING_INTEREST_SELECTION) // TODO(Rahul): Start with refresh later
 
     init {
@@ -67,5 +63,4 @@ enum class Screens {
     ONBOARDING_QUESTIONNAIRE,
     LOADING,
     MAIN_MAP,
-    SHARE,
 }

@@ -12,6 +12,7 @@ import com.treehacks.hopify.hopify.model.RouterViewModel
 import com.treehacks.hopify.hopify.model.Screens
 import com.treehacks.hopify.hopify.model.Screens.*
 import com.treehacks.hopify.hopify.view.LoadingFragment
+import com.treehacks.hopify.hopify.view.MainMapFragment
 import com.treehacks.hopify.hopify.view.OnboardingInterestSelectionFragment
 import com.treehacks.hopify.hopify.view.OnboardingQuestionnaireFragment
 import io.reactivex.Observer
@@ -59,8 +60,7 @@ class MainActivity : AppCompatActivity(), Observer<Screens> {
             ONBOARDING_INTEREST_SELECTION -> OnboardingInterestSelectionFragment.newInstance(viewModel.interestContinueClicked)
             ONBOARDING_QUESTIONNAIRE -> OnboardingQuestionnaireFragment.newInstance(viewModel.questionnaireContinueClicked)
             LOADING -> LoadingFragment.newInstance()
-            MAIN_MAP -> TODO()
-            SHARE -> TODO()
+            MAIN_MAP -> MainMapFragment.newInstance()
         }
 
         fragment?.let {

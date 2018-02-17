@@ -3,7 +3,7 @@ package com.treehacks.hopify.hopify.model
 /**
  * Created by rahul on 17/02/2018.
  */
-class QuestionnaireViewModel(
+data class QuestionnaireViewModel(
         val hours: Int? = null,
         val lat: Double? = null,
         val lng: Double? = null,

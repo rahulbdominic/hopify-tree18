@@ -23,6 +23,7 @@ class RouterViewModel {
                 },
                 questionnaireContinueClicked.map {
                     state.withParams(
+                            hours = it.hours,
                             lat = it.lat,
                             lng = it.lng,
                             radius = it.radius,

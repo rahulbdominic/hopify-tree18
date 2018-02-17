@@ -20,7 +20,7 @@ class HopifyApiManager {
             .build()
     private val hopifyApi = retrofit.create(HopifyApi::class.java)
 
-    fun postData(data: OnboardingState): Observable<HopifyOnboardingResponse> {
+    fun postData(data: OnboardingState): Observable<List<HopifyOnboardingResponse>> {
         return hopifyApi.postData(
                 data.interests.map { it.value },
                 data.hours!!,

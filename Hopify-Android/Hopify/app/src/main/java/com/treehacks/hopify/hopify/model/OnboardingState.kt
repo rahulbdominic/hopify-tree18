@@ -4,7 +4,7 @@ package com.treehacks.hopify.hopify.model
  * Created by rahul on 17/02/2018.
  */
 
-class OnboardingState(
+data class OnboardingState(
         val interests: List<Interest> = arrayListOf(),
         val hours: Int? = null,
         val lat: Double? = null,

@@ -17,5 +17,5 @@ interface HopifyApi {
             @Query("lng") lng: Double,
             @Query("radius") radius: Int,
             @Query("maxPrice") maxPrice: Int
-    ): Observable<HopifyOnboardingResponse>
+    ): Observable<List<HopifyOnboardingResponse>>
 }

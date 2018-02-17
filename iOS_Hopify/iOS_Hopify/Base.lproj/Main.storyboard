@@ -152,5 +152,34 @@
             </objects>
             <point key="canvasLocation" x="868" y="117.39130434782609"/>
         </scene>
+        <!--MapViewController-->
+        <scene sceneID="igO-Yo-Eup">
+            <objects>
+                <viewController restorationIdentifier="MapsViewController" storyboardIdentifier="MapsViewController" title="MapsViewController" id="rkR-Bq-O6g" userLabel="MapViewController" customClass="MapsViewController" customModule="iOS_Hopify" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Sp-3D-1to">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Jgv-fY-v3P">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Jgv-fY-v3P" firstAttribute="bottom" secondItem="8ne-dh-qob" secondAttribute="bottom" id="4Cu-Bk-Md1"/>
+                            <constraint firstItem="Jgv-fY-v3P" firstAttribute="top" secondItem="8ne-dh-qob" secondAttribute="top" id="JGA-td-cW8"/>
+                            <constraint firstItem="Jgv-fY-v3P" firstAttribute="leading" secondItem="8ne-dh-qob" secondAttribute="leading" id="sRM-iO-4dX"/>
+                            <constraint firstItem="Jgv-fY-v3P" firstAttribute="trailing" secondItem="8ne-dh-qob" secondAttribute="trailing" id="yuS-Pa-IYU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8ne-dh-qob"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="Jgv-fY-v3P" id="caa-8f-Tcj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qSf-6m-59U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="864.79999999999995" y="776.76161919040487"/>
+        </scene>
     </scenes>
 </document>

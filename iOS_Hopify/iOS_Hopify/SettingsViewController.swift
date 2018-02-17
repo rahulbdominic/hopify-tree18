@@ -57,8 +57,11 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func getRecommendation(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "MapsViewController") as? MapsViewController
+        self.present(controller!, animated: true, completion: nil)
     }
-    
+
     func setPriceLabel() {
         switch Int(priceSlider.value) {
         case 0:

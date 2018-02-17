@@ -13,28 +13,28 @@ import kotterknife.bindView
 /**
  * Created by rahul on 17/02/2018.
  */
-class InterestsRecyclerViewAdapter(
+class OnboardingInterestsRecyclerViewAdapter(
         private val dataset: List<Interest>
-) : RecyclerView.Adapter<InterestsRecyclerViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<OnboardingInterestsRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context)
                 .inflate(R.layout.interests_item, parent, false) as LinearLayout
 
-        return InterestsRecyclerViewAdapter.ViewHolder(v)
+        return OnboardingInterestsRecyclerViewAdapter.ViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = dataset[position]
         holder.title.text = item.value
-        holder.title.tag = item.value
+        holder.rootView.tag = item.value
     }
 
     override fun getItemCount(): Int {
         return dataset.size
     }
 
-    class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
+    class ViewHolder(val rootView: View) : RecyclerView.ViewHolder(rootView) {
         val title by bindView<TextView>(R.id.interests_title)
     }
 }

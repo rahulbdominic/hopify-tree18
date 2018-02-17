@@ -17,7 +17,7 @@ import com.treehacks.hopify.hopify.model.Interest
 import com.treehacks.hopify.hopify.utils.RecyclerItemClickObservable
 import kotterknife.bindView
 
-class InterestSelectionFragment : Fragment() {
+class OnboardingInterestSelectionFragment : Fragment() {
     val recyclerView by bindView<RecyclerView>(R.id.interests_recycler_view)
     val nextButton by bindView<Button>(R.id.interests_next_button)
 
@@ -28,14 +28,14 @@ class InterestSelectionFragment : Fragment() {
         return inflater.inflate(R.layout.interest_selection_fragment, container, false) as LinearLayout
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         setUpUiElements()
     }
 
     private fun setUpUiElements() {
         val layoutManager = GridLayoutManager(context, 3)
-        val adapter = InterestsRecyclerViewAdapter(defaultInterests)
+        val adapter = OnboardingInterestsRecyclerViewAdapter(defaultInterests)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
         RecyclerItemClickObservable(recyclerView, context)
@@ -48,10 +48,10 @@ class InterestSelectionFragment : Fragment() {
     }
 
     companion object {
-        private val LOG_TAG: String = InterestSelectionFragment::class.java.name
+        private val LOG_TAG: String = OnboardingInterestSelectionFragment::class.java.name
 
-        fun newInstance(relay: Relay<List<Interest>>): InterestSelectionFragment {
-            val fragment = InterestSelectionFragment()
+        fun newInstance(relay: Relay<List<Interest>>): OnboardingInterestSelectionFragment {
+            val fragment = OnboardingInterestSelectionFragment()
             fragment.relay = relay
             return fragment
         }

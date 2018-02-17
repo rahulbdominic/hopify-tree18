@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/questionnaire_location_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/location_placeholder"/>
+
+    <Button
+        android:id="@+id/questionnaire_choose_location_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_a_start_location"/>
+
+    <EditText
+        android:id="@+id/questionnaire_radius_edit_text"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="3000"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/select_pricerange_from_0_4_free_to_expensive"/>
+
+    <SeekBar
+        android:id="@+id/questionnaire_price_seek_bar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="4"
+        android:progress="0" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/questionnaire_next_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3f51b4"
+        android:textColor="#fff"
+        android:text="@string/next" />
+</LinearLayout>

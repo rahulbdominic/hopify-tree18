@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.treehacks.hopify.hopify"
         minSdkVersion 20
@@ -17,6 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions{
+        exclude 'META-INF/rxjava.properties'
+    }
 }
 
 dependencies {
@@ -24,7 +27,28 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.6'
+    compile 'io.reactivex.rxjava2:rxkotlin:2.+'
+    compile 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
+
+    compile 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0'
+    compile 'com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:2.0.0'
+    compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:2.0.0'
+    compile 'com.jakewharton.rxbinding2:rxbinding-design-kotlin:2.0.0'
+    compile 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:2.0.0'
+    
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
+    compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
+    compile 'com.android.support:appcompat-v7:26.0.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+}
+repositories {
+    mavenCentral()
 }

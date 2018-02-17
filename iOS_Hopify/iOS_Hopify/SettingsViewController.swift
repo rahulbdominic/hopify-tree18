@@ -59,7 +59,11 @@ class SettingsViewController: UIViewController {
     @IBAction func getRecommendation(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "MapsViewController") as? MapsViewController
-        self.present(controller!, animated: true, completion: nil)
+        showModal()
+        let when = DispatchTime.now() + 7
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.present(controller!, animated: true, completion: nil)
+        }
     }
 
     func setPriceLabel() {
@@ -75,6 +79,27 @@ class SettingsViewController: UIViewController {
         default:
             price.text = "Price: $"
         }
+    }
+
+    func showModal() {
+        let modalViewController = ModalViewController()
+        modalViewController.modalPresentationStyle = .overCurrentContext
+        modalViewController.modalTransitionStyle = .coverVertical
+
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.alpha = 0.7
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+
+        present(modalViewController, animated: true, completion: {
+            let when = DispatchTime.now() + 6
+            DispatchQueue.main.asyncAfter(deadline: when) {
+                print("done")
+                modalViewController.dismiss(animated: true, completion: nil)
+            }
+        })
     }
 
 }

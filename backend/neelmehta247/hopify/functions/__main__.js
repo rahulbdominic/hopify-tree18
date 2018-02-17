@@ -17,9 +17,10 @@ module.exports = async (lat, lng, radius, interests = [], context) => {
 const priorities = (places = []) => {
   for(i = 0; i < places.length; i++) {
     relevancy_rating = places.length - i;
-    count_score = places[i].count * 5;
-    relevancy_score = relevancy_rating * 2;
-    places[i].final_score = count_score + relevancy_score;
+    count_score = places[i].count * 3;
+    relevancy_score = (relevancy_rating * 9.5)/places.length;
+    google_rating = places[i].rating * 2;
+    places[i].final_score = count_score + relevancy_score + google_rating;
   }
   places.sort(function(a,b) {return b.final_score-a.final_score});
   return places;

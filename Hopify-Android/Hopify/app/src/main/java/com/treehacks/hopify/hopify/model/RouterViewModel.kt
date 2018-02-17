@@ -48,7 +48,7 @@ class RouterViewModel {
                 questionnaireContinueClicked.map {
                     submitDataRelay.accept(Unit)
                     Screens.LOADING
-                },
+                }
         ).startWith(Screens.ONBOARDING_INTEREST_SELECTION) // TODO(Rahul): Start with refresh later
 
     init {

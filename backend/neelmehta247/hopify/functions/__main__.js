@@ -9,7 +9,11 @@ const lib = require('lib');
 * @returns {array}
 */
 module.exports = async (lat, lng, radius, interests = [], context) => {
-    let result = await lib.neelmehta247.hopify['@dev'].maps(lat, lng, radius, interests);
+    const result = await lib.neelmehta247.hopify['@dev'].maps(lat, lng, radius, interests);
 
-    return result;
+    return func(result);
 };
+
+const func = (val) => {
+    return val;
+}

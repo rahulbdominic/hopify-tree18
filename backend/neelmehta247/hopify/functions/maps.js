@@ -1,4 +1,5 @@
 const axios = require('axios');
+const _ = require('lodash');
 
 const GOOGLE_API_KEY = process.env.google_api_key;
 const NEARBY_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json';
@@ -64,16 +65,13 @@ module.exports = async (lat, lng, radius, types = [], context) => {
     });
 
     let dataSet = new Set();
-    let resultList = [];
     // This is not giving good results as of now because it appends all the types one after the other.
     // Change so that it puts the first of each type first in the overall list.
-    await Promise.all(promiseList).then(resolved => {
-        resolved.forEach(({ data }) => {
-            // Data for all the types (promises), one by one
-            // Essentially each call, so every different type
-
+    const resultList = await Promise.all(promiseList).then(resolved => {
+        const updatedResults = resolved.map(({ data }) => {
+            // Data for all the individual types, one by one
             const results = data.results;
-            results.forEach(result => {
+            return results.map(result => {
                 // Each individual place result
 
                 // Dedupe data
@@ -81,24 +79,37 @@ module.exports = async (lat, lng, radius, types = [], context) => {
                     dataSet.add(result.id);
 
                     let count = 0;
-                    const resultTypes = result.types;
-                    resultTypes.forEach(resultType => {
+                    result.types.forEach(resultType => {
                         // Every type for the result
                         if (types.includes(resultType)) {
                             count++;
                         }
                     });
 
-                    // Assign each result a "count" for relevence
+                    // Assign a count
                     result.count = count;
-                    resultList.push(result);
+                    return result;
                 }
             });
         });
 
-        resultList.sort((item1, item2) => {
+        // Don't need to sort now. Solve the k sorted arrays issue later.
+        // const sortedResults = updatedResults.map(result => {
+        //     result.sort((item1, item2) => {
+        //         // Makes it so that higher counts bubble up,
+        //         // while same counts maintain Google's ordering
+        //         return item2.count - item1.count;
+        //     });
+
+        //     return result;
+        // });
+
+        const list = _.union(...updatedResults);
+        list.sort((item1, item2) => {
             return item2.count - item1.count;
         });
+
+        return list;
     }).catch(error => {
         throw error;
     });

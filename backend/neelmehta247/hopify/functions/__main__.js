@@ -5,13 +5,15 @@ const lib = require('lib');
 * @param {number} lat lattitude of the user
 * @param {number} lng longitude of the user
 * @param {number} radius The amount of distance user is willing to travel (in meters)
+* @param {integer} maxPrice This amount is the maximum price from 0-4
+* @param {integer} hours The number of hours the user is willing to spend
 * @param {array} interests The users interests
 * @returns {array}
 */
-module.exports = async (lat, lng, radius, interests = [], context) => {
-    const result = await lib.neelmehta247.hopify['@dev'].maps(lat, lng, radius, interests);
+module.exports = async (lat, lng, radius, maxPrice, hours, interests = [], context) => {
+    const result = await lib.neelmehta247.hopify['@dev'].maps(lat, lng, radius, maxPrice, interests);
 
-    return priorities(result);
+    return priorities(result).slice(0, hours);
 };
 
 const priorities = (places = []) => {

@@ -31,10 +31,11 @@ const ALLOWED_TYPES = [
 * @param {number} lat lattitude to search from
 * @param {number} lng longitude to search from
 * @param {number} radius radius to search in (meters)
+* @param {number} maxPrice the maximum willing to spend. Ranges from 0 to 4.
 * @param {array} types the types of places to search for
 * @returns {array}
 */
-module.exports = async (lat, lng, radius, types = [], context) => {
+module.exports = async (lat, lng, radius = 1000, maxPrice = 4, types = [], context) => {
     // Bunch of validation stuff
     if (radius > 50000) {
         throw new Error(`Radius value ${radius}m too large. Try less than 50000m.`);
@@ -58,6 +59,7 @@ module.exports = async (lat, lng, radius, types = [], context) => {
                 location: `${lat},${lng}`,
                 radius: radius,
                 types: type,
+                maxprice: maxPrice,
                 key: GOOGLE_API_KEY
             }
         });

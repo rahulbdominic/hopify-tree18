@@ -18,11 +18,11 @@ import com.treehacks.hopify.hopify.utils.RecyclerItemClickObservable
 import kotterknife.bindView
 
 class OnboardingInterestSelectionFragment : Fragment() {
-    val recyclerView by bindView<RecyclerView>(R.id.interests_recycler_view)
-    val nextButton by bindView<Button>(R.id.interests_next_button)
+    private val recyclerView by bindView<RecyclerView>(R.id.interests_recycler_view)
+    private val nextButton by bindView<Button>(R.id.interests_next_button)
 
-    lateinit var relay: Relay<List<Interest>>
-    val selectedInterests = mutableListOf<Interest>()
+    private lateinit var relay: Relay<List<Interest>>
+    private val selectedInterests = mutableListOf<Interest>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.interest_selection_fragment, container, false) as LinearLayout

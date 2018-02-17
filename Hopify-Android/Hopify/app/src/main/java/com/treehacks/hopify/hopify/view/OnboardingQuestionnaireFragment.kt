@@ -26,15 +26,15 @@ import kotterknife.bindView
  */
 
 class OnboardingQuestionnaireFragment : Fragment() {
-    val locationTitleTextView by bindView<TextView>(R.id.questionnaire_location_text_view)
-    val locationChooseButton by bindView<Button>(R.id.questionnaire_choose_location_button)
-    val radiusEditText by bindView<EditText>(R.id.questionnaire_radius_edit_text)
-    val priceSeekBar by bindView<SeekBar>(R.id.questionnaire_price_seek_bar)
-    val nextButton by bindView<Button>(R.id.questionnaire_next_button)
+    private val locationTitleTextView by bindView<TextView>(R.id.questionnaire_location_text_view)
+    private val locationChooseButton by bindView<Button>(R.id.questionnaire_choose_location_button)
+    private val radiusEditText by bindView<EditText>(R.id.questionnaire_radius_edit_text)
+    private val priceSeekBar by bindView<SeekBar>(R.id.questionnaire_price_seek_bar)
+    private val nextButton by bindView<Button>(R.id.questionnaire_next_button)
 
-    lateinit var relay: Relay<QuestionnaireViewModel>
+    private lateinit var relay: Relay<QuestionnaireViewModel>
 
-    var viewModel = QuestionnaireViewModel()
+    private var viewModel = QuestionnaireViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.onboarding_questionnaire_fragment, container, false) as LinearLayout
@@ -96,7 +96,7 @@ class OnboardingQuestionnaireFragment : Fragment() {
     }
 
     companion object {
-        private val LOG_TAG: String = OnboardingInterestSelectionFragment::class.java.name
+        private val LOG_TAG: String = OnboardingQuestionnaireFragment::class.java.name
         private const val PLACE_AUTOCOMPLETE_REQUEST_CODE: Int = 1
 
         fun newInstance(relay: Relay<QuestionnaireViewModel>): OnboardingQuestionnaireFragment {

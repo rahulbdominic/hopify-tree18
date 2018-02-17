@@ -11,6 +11,7 @@ import com.google.android.gms.location.places.Places
 import com.treehacks.hopify.hopify.model.RouterViewModel
 import com.treehacks.hopify.hopify.model.Screens
 import com.treehacks.hopify.hopify.model.Screens.*
+import com.treehacks.hopify.hopify.view.LoadingFragment
 import com.treehacks.hopify.hopify.view.OnboardingInterestSelectionFragment
 import com.treehacks.hopify.hopify.view.OnboardingQuestionnaireFragment
 import io.reactivex.Observer
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity(), Observer<Screens> {
         val fragment: Fragment? = when (t) {
             ONBOARDING_INTEREST_SELECTION -> OnboardingInterestSelectionFragment.newInstance(viewModel.interestContinueClicked)
             ONBOARDING_QUESTIONNAIRE -> OnboardingQuestionnaireFragment.newInstance(viewModel.questionnaireContinueClicked)
-            LOADING -> TODO()
+            LOADING -> LoadingFragment.newInstance()
             MAIN_MAP -> TODO()
             SHARE -> TODO()
         }

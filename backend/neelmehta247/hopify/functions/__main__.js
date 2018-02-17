@@ -11,9 +11,16 @@ const lib = require('lib');
 module.exports = async (lat, lng, radius, interests = [], context) => {
     const result = await lib.neelmehta247.hopify['@dev'].maps(lat, lng, radius, interests);
 
-    return func(result);
+    return priorities(result);
 };
 
-const func = (val) => {
-    return val;
+const priorities = (places = []) => {
+  for(i = 0; i < places.length; i++) {
+    relevancy_rating = places.length - i;
+    count_score = places[i].count * 5;
+    relevancy_score = relevancy_rating * 2;
+    places[i].final_score = count_score + relevancy_score;
+  }
+  places.sort(function(a,b) {return b.final_score-a.final_score});
+  return places;
 }

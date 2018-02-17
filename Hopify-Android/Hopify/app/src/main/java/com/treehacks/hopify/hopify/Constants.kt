@@ -18,3 +18,4 @@ val defaultInterests = arrayListOf<Interest>(
         Interest("Grill"),
         Interest("Mexican")
 )
+val apiBaseUrl = "https://neelmehta247.lib.id"

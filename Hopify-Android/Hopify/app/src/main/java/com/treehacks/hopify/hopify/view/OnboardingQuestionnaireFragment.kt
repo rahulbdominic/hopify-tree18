@@ -61,7 +61,7 @@ class OnboardingQuestionnaireFragment : Fragment() {
             }
         }
         radiusEditText.textChanges().subscribe {
-            viewModel = viewModel.withParams(radius = it.toString().toInt())
+            viewModel = viewModel.withParams(radius = if (it.toString() == "") 0 else it.toString().toInt())
         }
         priceSeekBar.changes().subscribe {
             viewModel = viewModel.withParams(maxPrice = it)

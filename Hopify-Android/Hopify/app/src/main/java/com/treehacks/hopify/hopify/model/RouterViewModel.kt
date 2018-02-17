@@ -2,16 +2,36 @@ package com.treehacks.hopify.hopify.model
 
 import com.jakewharton.rxrelay2.PublishRelay
 import com.jakewharton.rxrelay2.Relay
+import com.treehacks.hopify.hopify.server.HopifyApiManager
 import io.reactivex.Observable
 
 class RouterViewModel {
-    val refreshRelay: Relay<Unit> = PublishRelay.create<Unit>()
-    val submitDataRelay: Relay<Unit> = PublishRelay.create<Unit>()
-    val loadingRelay: Relay<Unit> = PublishRelay.create<Unit>()
+    private val manager = HopifyApiManager()
+
+    private val refreshRelay: Relay<Unit> = PublishRelay.create<Unit>()
+    private val submitDataRelay: Relay<Unit> = PublishRelay.create<Unit>()
+    private val loadingRelay: Relay<Unit> = PublishRelay.create<Unit>()
     val interestContinueClicked: Relay<List<Interest>> = PublishRelay.create<List<Interest>>()
     val questionnaireContinueClicked: Relay<QuestionnaireViewModel> = PublishRelay.create<QuestionnaireViewModel>()
     val shareLaunchRelay: Relay<Unit> = PublishRelay.create<Unit>()
     val shareRelay: Relay<Unit> = PublishRelay.create<Unit>()
+
+    private var state = OnboardingState()
+
+    private val stateStream: Observable<OnboardingState>
+        get() = Observable.mergeArray(
+                interestContinueClicked.map {
+                    state.withParams(interests = it)
+                },
+                questionnaireContinueClicked.map {
+                    state.withParams(
+                            lat = it.lat,
+                            lng = it.lng,
+                            radius = it.radius,
+                            maxPrice = it.maxPrice
+                    )
+                }
+        ).startWith(OnboardingState())
 
     val screenStream: Observable<Screens>
         get() = Observable.mergeArray(
@@ -20,9 +40,10 @@ class RouterViewModel {
                     // Default to onboarding for now
                     Screens.ONBOARDING_INTEREST_SELECTION
                 },
-                submitDataRelay.map {
-                    // Temp
-                    Screens.LOADING
+                submitDataRelay.flatMap {
+                    manager.postData(state).map {
+                        Screens.MAIN_MAP
+                    }
                 },
                 loadingRelay.map { Screens.MAIN_MAP },
                 interestContinueClicked.map { Screens.ONBOARDING_QUESTIONNAIRE },
@@ -32,24 +53,13 @@ class RouterViewModel {
                 },
                 shareLaunchRelay.map { Screens.SHARE },
                 shareRelay.map { Screens.MAIN_MAP }
-        ).startWith(Screens.ONBOARDING_INTEREST_SELECTION)
-}
+        ).startWith(Screens.ONBOARDING_INTEREST_SELECTION) // TODO(Rahul): Start with refresh later
 
-class OnboardingState(
-   val interests: List<Interest> = arrayListOf(),
-   val lat: Double? = null,
-   val lng: Double? = null,
-   val radius: Int? = null,
-   val maxPrice: Int? = null
-   // Add other information here
-) {
-    fun withParams(
-            interests: List<Interest> = this.interests,
-            lat: Double? = this.lat,
-            lng: Double? = this.lng,
-            radius: Int? = this.radius,
-            maxPrice: Int? = this.maxPrice
-    ): OnboardingState = OnboardingState(interests, lat, lng, radius, maxPrice)
+    init {
+        stateStream.subscribe {
+            state = it
+        }
+    }
 }
 
 enum class Screens {

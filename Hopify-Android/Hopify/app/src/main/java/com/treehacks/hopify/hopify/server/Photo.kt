@@ -2,8 +2,9 @@ package com.treehacks.hopify.hopify.server
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class Photo {
+class Photo : Serializable {
 
     @SerializedName("height")
     @Expose

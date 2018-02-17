@@ -1,18 +1,17 @@
 package com.treehacks.hopify.hopify
 
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import com.google.android.gms.location.places.GeoDataClient
 import com.google.android.gms.location.places.Places
+import com.treehacks.hopify.hopify.model.MapsViewModel
 
 import com.treehacks.hopify.hopify.model.RouterViewModel
 import com.treehacks.hopify.hopify.model.Screens
 import com.treehacks.hopify.hopify.model.Screens.*
 import com.treehacks.hopify.hopify.view.LoadingFragment
-import com.treehacks.hopify.hopify.view.MainMapFragment
 import com.treehacks.hopify.hopify.view.OnboardingInterestSelectionFragment
 import com.treehacks.hopify.hopify.view.OnboardingQuestionnaireFragment
 import io.reactivex.Observer
@@ -59,8 +58,16 @@ class MainActivity : AppCompatActivity(), Observer<Screens> {
         val fragment: Fragment? = when (t) {
             ONBOARDING_INTEREST_SELECTION -> OnboardingInterestSelectionFragment.newInstance(viewModel.interestContinueClicked)
             ONBOARDING_QUESTIONNAIRE -> OnboardingQuestionnaireFragment.newInstance(viewModel.questionnaireContinueClicked)
-            LOADING -> LoadingFragment.newInstance()
-            MAIN_MAP -> MainMapFragment.newInstance()
+            LOADING -> {
+                viewModel.submitDataRelay.accept(Unit)
+                LoadingFragment.newInstance()
+            }
+            MAIN_MAP -> {
+                val viewModel = viewModel.getMapsActivityViewModel()
+                val intent = MapsActivity.createIntent(this, viewModel)
+                startActivity(intent)
+                null
+            }
         }
 
         fragment?.let {

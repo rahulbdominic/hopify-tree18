@@ -9,8 +9,7 @@ class RouterViewModel {
     private val manager = HopifyApiManager()
 
     private val refreshRelay: Relay<Unit> = PublishRelay.create<Unit>()
-    private val submitDataRelay: Relay<Unit> = PublishRelay.create<Unit>()
-    private val loadingRelay: Relay<Unit> = PublishRelay.create<Unit>()
+    val submitDataRelay: Relay<Unit> = PublishRelay.create<Unit>()
     val interestContinueClicked: Relay<List<Interest>> = PublishRelay.create<List<Interest>>()
     val questionnaireContinueClicked: Relay<QuestionnaireViewModel> = PublishRelay.create<QuestionnaireViewModel>()
 
@@ -18,11 +17,28 @@ class RouterViewModel {
 
     private val stateStream: Observable<OnboardingState>
         get() = Observable.mergeArray(
+                refreshRelay.map {
+                    // Make initial call
+                    // Default to onboarding for now
+                    state.withParams(currentScreen = Screens.ONBOARDING_INTEREST_SELECTION)
+                },
+                submitDataRelay.flatMap {
+                    manager.postData(state).map {
+                        state.withParams(
+                                currentScreen = Screens.MAIN_MAP,
+                                hopifyOnboardingResponse = it
+                        )
+                    }
+                },
                 interestContinueClicked.map {
-                    state.withParams(interests = it)
+                    state.withParams(
+                            currentScreen = Screens.ONBOARDING_QUESTIONNAIRE,
+                            interests = it
+                    )
                 },
                 questionnaireContinueClicked.map {
                     state.withParams(
+                            currentScreen = Screens.LOADING,
                             hours = it.hours,
                             lat = it.lat,
                             lng = it.lng,
@@ -33,29 +49,17 @@ class RouterViewModel {
         ).startWith(OnboardingState())
 
     val screenStream: Observable<Screens>
-        get() = Observable.mergeArray(
-                refreshRelay.map<Screens> {
-                    // Make initial call
-                    // Default to onboarding for now
-                    Screens.ONBOARDING_INTEREST_SELECTION
-                },
-                submitDataRelay.flatMap {
-                    manager.postData(state).map {
-                        Screens.MAIN_MAP
-                    }
-                },
-                loadingRelay.map { Screens.MAIN_MAP },
-                interestContinueClicked.map { Screens.ONBOARDING_QUESTIONNAIRE },
-                questionnaireContinueClicked.map {
-                    submitDataRelay.accept(Unit)
-                    Screens.LOADING
-                }
-        ).startWith(Screens.ONBOARDING_INTEREST_SELECTION) // TODO(Rahul): Start with refresh later
+        get() = stateStream.map { it.currentScreen }
+                .startWith(Screens.ONBOARDING_INTEREST_SELECTION) // TODO(Rahul): Start with refresh later
 
     init {
         stateStream.subscribe {
             state = it
         }
+    }
+
+    fun getMapsActivityViewModel(): MapsViewModel {
+        return MapsViewModel(state.hopifyOnboardingResponse ?: listOf())
     }
 }
 

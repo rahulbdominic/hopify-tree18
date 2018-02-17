@@ -73,7 +73,7 @@ class LikesViewController: UIViewController, UITableViewDelegate {
             .subscribe(onNext: { [weak self] indexPath in
                 let cell = self?.likeTableView.cellForRow(at: indexPath)
                 self?.selectedLikes.append((cell?.textLabel?.text)!)
-                cell?.backgroundColor = UIColor(displayP3Red: 0, green: 100, blue: 100, alpha: 0.5)
+                cell?.backgroundColor = UIColor(displayP3Red: 0, green: 255, blue: 0, alpha: 0.5)
                 cell?.isSelected = false
                 print(self?.selectedLikes as! [String])
             })
@@ -82,5 +82,9 @@ class LikesViewController: UIViewController, UITableViewDelegate {
 
 
     @IBAction func nextPage(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController
+        controller?.data.likes = selectedLikes
+        self.present(controller!, animated: true, completion: nil)
     }
 }

@@ -11,13 +11,14 @@
 		A9F2AC287C2C414F180E9409 /* Pods_iOS_Hopify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FDA3EFD8DCA6A0315586115 /* Pods_iOS_Hopify.framework */; };
 		AC0784D2E373A0FF4111FF5D /* Pods_iOS_HopifyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1199EBA8D3C205809B261993 /* Pods_iOS_HopifyUITests.framework */; };
 		CC46F5222038AD24004F024E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC46F5212038AD24004F024E /* AppDelegate.swift */; };
-		CC46F5242038AD24004F024E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC46F5232038AD24004F024E /* ViewController.swift */; };
+		CC46F5242038AD24004F024E /* LikesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC46F5232038AD24004F024E /* LikesViewController.swift */; };
 		CC46F5272038AD24004F024E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC46F5252038AD24004F024E /* Main.storyboard */; };
 		CC46F5292038AD24004F024E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC46F5282038AD24004F024E /* Assets.xcassets */; };
 		CC46F52C2038AD24004F024E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC46F52A2038AD24004F024E /* LaunchScreen.storyboard */; };
 		CC46F5372038AD24004F024E /* iOS_HopifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC46F5362038AD24004F024E /* iOS_HopifyTests.swift */; };
 		CC46F5422038AD24004F024E /* iOS_HopifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC46F5412038AD24004F024E /* iOS_HopifyUITests.swift */; };
 		CC46F5502038ADAC004F024E /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC46F54F2038ADAC004F024E /* CellView.swift */; };
+		CC46F5522038B153004F024E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC46F5512038B153004F024E /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +49,7 @@
 		AC3461B18E5CD616F5A2CB5F /* Pods-iOS_HopifyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_HopifyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOS_HopifyTests/Pods-iOS_HopifyTests.release.xcconfig"; sourceTree = "<group>"; };
 		CC46F51E2038AD24004F024E /* iOS_Hopify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_Hopify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC46F5212038AD24004F024E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CC46F5232038AD24004F024E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CC46F5232038AD24004F024E /* LikesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesViewController.swift; sourceTree = "<group>"; };
 		CC46F5262038AD24004F024E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CC46F5282038AD24004F024E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC46F52B2038AD24004F024E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -60,6 +61,7 @@
 		CC46F5412038AD24004F024E /* iOS_HopifyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_HopifyUITests.swift; sourceTree = "<group>"; };
 		CC46F5432038AD24004F024E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC46F54F2038ADAC004F024E /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
+		CC46F5512038B153004F024E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E64C9E690B2B77B7B07AA5D6 /* Pods-iOS_Hopify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Hopify.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOS_Hopify/Pods-iOS_Hopify.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,12 +129,13 @@
 			isa = PBXGroup;
 			children = (
 				CC46F5212038AD24004F024E /* AppDelegate.swift */,
-				CC46F5232038AD24004F024E /* ViewController.swift */,
+				CC46F5232038AD24004F024E /* LikesViewController.swift */,
 				CC46F54F2038ADAC004F024E /* CellView.swift */,
 				CC46F5252038AD24004F024E /* Main.storyboard */,
 				CC46F5282038AD24004F024E /* Assets.xcassets */,
 				CC46F52A2038AD24004F024E /* LaunchScreen.storyboard */,
 				CC46F52D2038AD24004F024E /* Info.plist */,
+				CC46F5512038B153004F024E /* SettingsViewController.swift */,
 			);
 			path = iOS_Hopify;
 			sourceTree = "<group>";
@@ -467,9 +470,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC46F5242038AD24004F024E /* ViewController.swift in Sources */,
+				CC46F5242038AD24004F024E /* LikesViewController.swift in Sources */,
 				CC46F5222038AD24004F024E /* AppDelegate.swift in Sources */,
 				CC46F5502038ADAC004F024E /* CellView.swift in Sources */,
+				CC46F5522038B153004F024E /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -29,6 +29,7 @@ class OnboardingQuestionnaireFragment : Fragment() {
     private val locationTitleTextView by bindView<TextView>(R.id.questionnaire_location_text_view)
     private val locationChooseButton by bindView<Button>(R.id.questionnaire_choose_location_button)
     private val radiusEditText by bindView<EditText>(R.id.questionnaire_radius_edit_text)
+    private val hoursEditText by bindView<EditText>(R.id.questionnaire_hours_edit_text)
     private val priceSeekBar by bindView<SeekBar>(R.id.questionnaire_price_seek_bar)
     private val nextButton by bindView<Button>(R.id.questionnaire_next_button)
 
@@ -47,6 +48,7 @@ class OnboardingQuestionnaireFragment : Fragment() {
 
     private fun setUpUiElements() {
         viewModel = viewModel.withParams(
+                hours = hoursEditText.text.toString().toInt(),
                 radius = radiusEditText.text.toString().toInt(),
                 maxPrice = priceSeekBar.progress
         )
@@ -59,6 +61,9 @@ class OnboardingQuestionnaireFragment : Fragment() {
             } catch (e: GooglePlayServicesNotAvailableException) {
                 Log.i(LOG_TAG, e.message)
             }
+        }
+        hoursEditText.textChanges().subscribe {
+            viewModel = viewModel.withParams(hours = if (it.toString() == "") 0 else it.toString().toInt())
         }
         radiusEditText.textChanges().subscribe {
             viewModel = viewModel.withParams(radius = if (it.toString() == "") 0 else it.toString().toInt())

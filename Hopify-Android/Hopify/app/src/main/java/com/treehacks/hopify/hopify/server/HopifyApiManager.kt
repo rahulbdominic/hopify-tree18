@@ -21,7 +21,14 @@ class HopifyApiManager {
     private val hopifyApi = retrofit.create(HopifyApi::class.java)
 
     fun postData(data: OnboardingState): Observable<HopifyOnboardingResponse> {
-        return hopifyApi.postData(data)
+        return hopifyApi.postData(
+                data.interests.map { it.value },
+                data.hours!!,
+                data.lat!!,
+                data.lng!!,
+                data.radius!!,
+                data.maxPrice!!
+        )
                 .subscribeOn(Schedulers.io())
     }
 }

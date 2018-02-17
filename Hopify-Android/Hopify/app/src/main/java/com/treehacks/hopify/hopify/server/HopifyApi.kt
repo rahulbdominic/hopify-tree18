@@ -1,9 +1,8 @@
 package com.treehacks.hopify.hopify.server
 
-import com.treehacks.hopify.hopify.model.OnboardingState
 import io.reactivex.Observable
-import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 /**
  * Created by rahul on 17/02/2018.
@@ -11,5 +10,12 @@ import retrofit2.http.GET
 
 interface HopifyApi {
     @GET("hopify@dev")
-    fun postData(@Body body: OnboardingState): Observable<HopifyOnboardingResponse>
+    fun postData(
+            @Query("interests") interests: List<String>,
+            @Query("hours") hours: Int,
+            @Query("lat") lat: Double,
+            @Query("lng") lng: Double,
+            @Query("radius") radius: Int,
+            @Query("maxPrice") maxPrice: Int
+    ): Observable<HopifyOnboardingResponse>
 }

@@ -23,6 +23,13 @@
         android:layout_height="wrap_content"
         android:text="3000"/>
 
+    <EditText
+        android:id="@+id/questionnaire_hours_edit_text"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

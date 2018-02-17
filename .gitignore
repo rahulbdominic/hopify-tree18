@@ -66,3 +66,15 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
+
+#Android
+/Hopify-Android/Hopify/*.iml
+/Hopify-Android/Hopify/.gradle
+/Hopify-Android/Hopify/local.properties
+/Hopify-Android/Hopify/.idea/workspace.xml
+/Hopify-Android/Hopify/.idea/libraries
+/Hopify-Android/Hopify/.idea/
+.DS_Store
+/Hopify-Android/Hopify/build
+/Hopify-Android/Hopify/captures
+/Hopify-Android/Hopify.externalNativeBuild

@@ -15,18 +15,20 @@ module.exports = async (lat, lng, radius, interests = [], context) => {
 };
 
 const priorities = (places = []) => {
-  for(i = 0; i < places.length; i++) {
-    relevancy_rating = places.length - i;
-    count_score = places[i].count * 3;
-    relevancy_score = (relevancy_rating * 9.5)/places.length;
-    if ("rating" in places[i]) {
-      google_rating = places[i].rating * 2;
-      places[i].final_score = count_score + relevancy_score + google_rating;
+    for (i = 0; i < places.length; i++) {
+        const relevancy_rating = places.length - i;
+        const count_score = places[i].count * 3;
+        const relevancy_score = (relevancy_rating * 9.5) / places.length;
+
+        if ("rating" in places[i]) {
+            const google_rating = places[i].rating * 2;
+            places[i].final_score = count_score + relevancy_score + google_rating;
+        } else {
+            places.pop(places[i]);
+        }
     }
-    else {
-      places.pop(places[i]);
-    }
-  }
-  places.sort(function(a,b) {return b.final_score-a.final_score});
-  return places;
+
+    places.sort((a, b) => b.final_score-a.final_score);
+
+    return places;
 }

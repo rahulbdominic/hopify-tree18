@@ -7,4 +7,6 @@ import java.io.Serializable
  * Created by rahul on 17/02/2018.
  */
 
- class MapsViewModel(val data: List<HopifyOnboardingResponse>) : Serializable
+class MapsViewModel(private val responseData: HopifyOnboardingResponse) : Serializable {
+    val data by lazy { responseData.data }
+}

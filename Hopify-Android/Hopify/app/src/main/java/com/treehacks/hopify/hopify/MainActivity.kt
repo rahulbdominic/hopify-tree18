@@ -1,13 +1,11 @@
 package com.treehacks.hopify.hopify
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.google.android.gms.location.places.GeoDataClient
 import com.google.android.gms.location.places.Places
-import com.treehacks.hopify.hopify.model.MapsViewModel
-
 import com.treehacks.hopify.hopify.model.RouterViewModel
 import com.treehacks.hopify.hopify.model.Screens
 import com.treehacks.hopify.hopify.model.Screens.*

@@ -14,7 +14,7 @@ data class OnboardingState(
         val lng: Double? = null,
         val radius: Int? = null,
         val maxPrice: Int? = null,
-        val hopifyOnboardingResponse: List<HopifyOnboardingResponse>? = null
+        val hopifyOnboardingResponse: HopifyOnboardingResponse? = null
         // Add other information here
 ) {
     fun withParams(
@@ -25,7 +25,7 @@ data class OnboardingState(
             lng: Double? = this.lng,
             radius: Int? = this.radius,
             maxPrice: Int? = this.maxPrice,
-            hopifyOnboardingResponse: List<HopifyOnboardingResponse>? = this.hopifyOnboardingResponse
+            hopifyOnboardingResponse: HopifyOnboardingResponse? = this.hopifyOnboardingResponse
     ): OnboardingState = OnboardingState(
             currentScreen,
             interests,

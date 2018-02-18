@@ -45,7 +45,7 @@ class OnboardingInterestSelectionFragment : Fragment(), Observer<View> {
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
         RecyclerItemClickObservable(recyclerView, context)
-                .subscribe (this)
+                .subscribe(this)
 
         nextButton.clicks()
                 .subscribe { relay.accept(selectedInterests.toList()) }

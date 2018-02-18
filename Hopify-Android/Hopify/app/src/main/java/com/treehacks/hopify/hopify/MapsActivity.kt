@@ -8,7 +8,6 @@ import android.graphics.Color
 import android.location.Location
 import android.os.AsyncTask
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
 import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import android.util.Log
@@ -70,7 +69,8 @@ class MapsActivity :
                     item.geometry?.location?.lat ?: 0.toDouble(),
                     item.geometry?.location?.lng ?: 0.toDouble()
             )
-            mMap.addMarker(MarkerOptions().position(point).title("${index + 1}. ${item.name ?: ""}"))
+            mMap.addMarker(MarkerOptions().position(point).title("${index + 1}. ${item.name
+                    ?: ""}"))
         }
         mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(
                 viewModel.data[0].geometry?.location?.lat ?: 0.toDouble(),

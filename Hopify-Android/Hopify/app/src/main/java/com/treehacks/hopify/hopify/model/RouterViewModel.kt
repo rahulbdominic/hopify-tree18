@@ -11,6 +11,7 @@ import io.reactivex.rxkotlin.subscribeBy
 class RouterViewModel {
     private val manager = HopifyApiManager()
 
+    val onboardingRelay: Relay<Unit> = PublishRelay.create<Unit>()
     val deepLinkRelay: Relay<String> = PublishRelay.create<String>()
     val submitDataRelay: Relay<Unit> = PublishRelay.create<Unit>()
     val interestContinueClicked: Relay<List<Interest>> = PublishRelay.create<List<Interest>>()
@@ -27,6 +28,9 @@ class RouterViewModel {
                                 hopifyOnboardingResponse = it
                         )
                     }
+                },
+                onboardingRelay.map {
+                    state.withParams(currentScreen = Screens.ONBOARDING_INTEREST_SELECTION)
                 },
                 submitDataRelay.flatMap {
                     manager.postData(state).map {
@@ -51,7 +55,7 @@ class RouterViewModel {
                             radius = it.radius,
                             maxPrice = it.maxPrice
                     )
-                }.startWith(OnboardingState(currentScreen = Screens.ONBOARDING_INTEREST_SELECTION))
+                }.startWith(OnboardingState(currentScreen = Screens.REFRESH))
         )
 
     init {
@@ -77,5 +81,6 @@ enum class Screens {
     ONBOARDING_INTEREST_SELECTION,
     ONBOARDING_QUESTIONNAIRE,
     LOADING,
+    REFRESH,
     MAIN_MAP,
 }

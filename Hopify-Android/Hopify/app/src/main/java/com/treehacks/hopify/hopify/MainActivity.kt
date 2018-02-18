@@ -42,25 +42,19 @@ class MainActivity : AppCompatActivity(), Observer<OnboardingState> {
         super.onStart()
         val branch = Branch.getInstance()
 
-        branch.initSession({ branchUniversalObject, linkProperties, error ->
-            if (error == null) {
-                Log.i("BRANCH_MY", branchUniversalObject.toString())
-                Log.i("BRANCH_MY", linkProperties.toString())
-            } else {
-                Log.i("BRANCH_MY", error.message)
-            }
-        }, this.intent.data, this)
-
         viewModel.stateStream
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this)
-        branch.initSession { referringParams, error ->
-            if (error == null) {
-                Log.i("BRANCH_MY", referringParams.toString())
-                val uuid = referringParams.getString("uuid")
 
-                // knock yourself out
+        branch.initSession { branchUniversalObject, linkProperties, error ->
+            if (error == null) {
+                if(linkProperties == null || linkProperties.controlParams.get("\$uuid") == null) {
+                    viewModel.onboardingRelay.accept(Unit)
+                } else {
+                    viewModel.deepLinkRelay.accept(linkProperties.controlParams["\$uuid"])
+                }
             } else {
+                viewModel.onboardingRelay.accept(Unit)
                 Log.i("BRANCH_MY", error.message)
             }
         }
@@ -96,9 +90,9 @@ class MainActivity : AppCompatActivity(), Observer<OnboardingState> {
                 viewModel.submitDataRelay.accept(Unit)
                 LoadingFragment.newInstance()
             }
+            REFRESH-> LoadingFragment.newInstance()
             MAIN_MAP -> {
-                val viewModel = MapsViewModel(t.hopifyOnboardingResponse!!)
-                val intent = MapsActivity.createIntent(this, viewModel)
+                val intent = MapsActivity.createIntent(this, t.hopifyOnboardingResponse!!)
                 startActivity(intent)
                 null
             }

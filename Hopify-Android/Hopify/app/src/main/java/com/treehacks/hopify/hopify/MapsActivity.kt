@@ -120,7 +120,7 @@ class MapsActivity :
                 .setFeature("sharing")
                 .setCampaign("City Crawler")
                 .setStage("Sharing trip")
-                .addControlParameter("uuid", viewModel.id)
+                .addControlParameter("\$uuid", viewModel.id)
 
         buo.generateShortUrl(this, lp, { url, error ->
             if (error == null) {

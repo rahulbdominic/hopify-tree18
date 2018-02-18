@@ -2,7 +2,7 @@ const lib = require('lib');
 const uuid = require('uuid/v4');
 const axios = require('axios');
 
-const GOOGLE_API_KEY = process.env.google_api_key;
+const GOOGLE_API_KEY = process.env.google_distance_matrix_key;
 const DISTANCE_MATRIX_URL = 'https://maps.googleapis.com/maps/api/distancematrix/json';
 
 /**
@@ -46,29 +46,31 @@ const priorities = (places = []) => {
     return places;
 }
 
-const distances = (places = [], hours, lat, lng) => {
+const distances = async (places = [], hours, lat, lng) => {
   journeys = {};
 
   for (i = 0; i < places.length; i++) {
     for (j = i + 1; j < places.length; j++) {
-      if (!journeys.hasOwnProperty(places[i].id)) {
-        journeys.places[i].id = {};
+      iplace_id = places[i].place_id;
+      jplace_id = places[j].place_id;
+      if (!journeys.hasOwnProperty(places[i].place_id)) {
+        journeys[iplace_id] = {};
       }
-      if (!journeys.hasOwnProperty(places[j].id)) {
-        journeys.places[j].id = {};
+      if (!journeys.hasOwnProperty(places[j].place_id)) {
+        journeys[jplace_id] = {};
       }
-      axios.get(DISTANCE_MATRIX_URL, {
+      await axios.get(DISTANCE_MATRIX_URL, {
           params: {
-              origin: `${places[i].geometry.location.lat},${places[i].geometry.location.lng}`,
-              destination: `${places[j].geometry.location.lat},${places[j].geometry.location.lng}`,
+              origins: `place_id:${iplace_id}`,
+              destinations: `place_id:${jplace_id}`,
               key: GOOGLE_API_KEY
           }
       }).then(result => {
         data = result.data
-        journeys.places[i].id.places[j].id = data.rows[0].elements[0].duration.value
-        journeys.places[j].id.places[i].id = data.rows[0].elements[0].duration.value
+        journeys[iplace_id][jplace_id] = data.rows[0].elements[0].duration.value
+        journeys[jplace_id][iplace_id] = data.rows[0].elements[0].duration.value
       });
-
     }
   }
+  return journeys;
 }

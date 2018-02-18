@@ -55,7 +55,7 @@ class HopifyNetwork {
 
     let disposeBag = DisposeBag()
     //let sourceStringURL = "https://neelmehta247.lib.id/hopify@dev/?lat=37.427475&lng=-122.1697190&radius=2000&interests=[%22cafe%22,%22bar%22,%22plumber%22]&maxPrice=4&hours=25"
-    let url = NSURLComponents(string: "https://neelmehta247.lib.id/hopify@1.2.0/")!
+    let url = NSURLComponents(string: "https://neelmehta247.lib.id/hopify/")!
 
     static let shared = HopifyNetwork()
 
@@ -116,7 +116,7 @@ class HopifyNetwork {
     }
 
     func sendDeepLinkToPhone(number: String, url: String) {
-        let newURLString = "https://neelmehta247.lib.id/hopify@1.2.0/message/?number=\(number)&url=\(url)"
+        let newURLString = "https://neelmehta247.lib.id/hopify/message/?number=\(number)&url=\(url)"
         RxAlamofire.requestJSON(.get, newURLString)
             .debug()
             .subscribe(onNext: { (r, json) in

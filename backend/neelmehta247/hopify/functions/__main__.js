@@ -1,5 +1,9 @@
 const lib = require('lib');
 const uuid = require('uuid/v4');
+const axios = require('axios');
+
+const GOOGLE_API_KEY = process.env.google_api_key;
+const DISTANCE_MATRIX_URL = 'https://maps.googleapis.com/maps/api/distancematrix/json';
 
 /**
 * API to return recommendations for how to spend the night.
@@ -40,4 +44,31 @@ const priorities = (places = []) => {
     places.sort((a, b) => b.final_score-a.final_score);
 
     return places;
+}
+
+const distances = (places = [], hours, lat, lng) => {
+  journeys = {};
+
+  for (i = 0; i < places.length; i++) {
+    for (j = i + 1; j < places.length; j++) {
+      if (!journeys.hasOwnProperty(places[i].id)) {
+        journeys.places[i].id = {};
+      }
+      if (!journeys.hasOwnProperty(places[j].id)) {
+        journeys.places[j].id = {};
+      }
+      axios.get(DISTANCE_MATRIX_URL, {
+          params: {
+              origin: `${places[i].geometry.location.lat},${places[i].geometry.location.lng}`,
+              destination: `${places[j].geometry.location.lat},${places[j].geometry.location.lng}`,
+              key: GOOGLE_API_KEY
+          }
+      }).then(result => {
+        data = result.data
+        journeys.places[i].id.places[j].id = data.rows[0].elements[0].duration.value
+        journeys.places[j].id.places[i].id = data.rows[0].elements[0].duration.value
+      });
+
+    }
+  }
 }

@@ -45,6 +45,10 @@
             android:name="com.treehacks.hopify.hopify.MapsActivity"
             android:launchMode="singleTask">
         </activity>
+        <activity
+            android:name="com.treehacks.hopify.hopify.view.MapsListActivity"
+            android:launchMode="singleTask">
+        </activity>
 
         <!-- Branch init -->
         <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_iotJ2wNFXCAlBkr903mKKcnaqsgYFWtB" />

@@ -10,6 +10,7 @@ import android.location.Location
 import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import android.util.Log
@@ -26,10 +27,12 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.jakewharton.rxbinding2.view.clicks
+import com.treehacks.hopify.hopify.model.MapsScreens
 import com.treehacks.hopify.hopify.model.MapsViewModel
 import com.treehacks.hopify.hopify.server.DataParser
 import com.treehacks.hopify.hopify.server.HopifyApiManager
 import com.treehacks.hopify.hopify.server.HopifyOnboardingResponse
+import com.treehacks.hopify.hopify.view.MapsListActivity
 import io.branch.indexing.BranchUniversalObject
 import io.branch.referral.Branch
 import io.branch.referral.BranchError
@@ -100,7 +103,8 @@ class MapsActivity :
             launchContactsPicker()
         }
         listViewButton.clicks().subscribe {
-
+            val intent = MapsListActivity.createIntent(this, viewModel.raw)
+            startActivity(intent)
         }
     }
 
@@ -129,7 +133,10 @@ class MapsActivity :
                         .subscribeBy(
                                 onError = { Log.i(LOG_TAG, it.message) },
                                 onComplete = {},
-                                onNext = { Log.i(LOG_TAG, it.string()) }
+                                onNext = {
+                                    Log.i(LOG_TAG, it.string())
+                                    Toast.makeText(this, "Text message sent!", Toast.LENGTH_SHORT)
+                                }
                         )
                 Log.i("BRANCH SDK", "url: " + url)
             }

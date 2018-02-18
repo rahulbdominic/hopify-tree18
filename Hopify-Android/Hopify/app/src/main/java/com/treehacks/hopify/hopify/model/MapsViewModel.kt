@@ -16,6 +16,7 @@ import java.io.Serializable
 class MapsViewModel(private val responseData: HopifyOnboardingResponse) : Serializable {
     val id by lazy { responseData.uuid }
     val data by lazy { responseData.data }
+    val raw by lazy { responseData }
 
     val listClickRelay: Relay<Unit> = PublishRelay.create<Unit>()
     val mapsClickRelay: Relay<Unit> = PublishRelay.create<Unit>()

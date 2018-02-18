@@ -17,7 +17,7 @@ import kotterknife.bindView
  * Created by rahul on 17/02/2018.
  */
 
-fun String.underscoreToProper(): String {
+private fun String.underscoreToProper(): String {
     return this.split('_').joinToString(" ") {
         it.toCharArray().foldIndexed("") { index, acc, c ->
             if (index == 0) {

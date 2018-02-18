@@ -118,7 +118,8 @@ class LikesViewController: UIViewController, UITableViewDelegate {
             .subscribe(onNext: { [weak self] indexPath in
                 let cell = self?.likeTableView.cellForRow(at: indexPath) as! ChoiceCell
                 self?.selectedLikes.append(cell.titleLabel.text!)
-                cell.backgroundColor = UIColor(displayP3Red: 0, green: 255, blue: 0, alpha: 0.5)
+                cell.backgroundColor = UIColor(displayP3Red: 0, green: 100.0/255.0, blue: 0, alpha: 1)
+                cell.titleLabel.textColor = .white
                 cell.isSelected = false
                 print(self?.selectedLikes as! [String])
             })

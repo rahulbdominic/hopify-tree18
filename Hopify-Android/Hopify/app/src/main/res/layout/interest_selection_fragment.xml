@@ -8,24 +8,36 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="30dp"
+        android:paddingBottom="30dp"
+        android:paddingEnd="55dp"
+        android:paddingStart="10dp"
+        android:paddingTop="30dp"
         android:text="@string/select_your_interests"
-        android:textSize="18sp"
+        android:textAllCaps="true"
+        android:textColor="#000"
+        android:textSize="38dp"
         android:textStyle="bold" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/interests_recycler_view"
-        android:layout_width="wrap_content"
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp" />
+        android:layout_weight="1">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/interests_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textAlignment="center" />
+    </android.support.v4.widget.NestedScrollView>
 
     <Button
         android:id="@+id/interests_next_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#3f51b4"
-        android:textColor="#fff"
-        android:text="@string/next" />
+        android:background="@color/colorPrimary"
+        android:text="@string/next"
+        android:textColor="@color/grey" />
 </LinearLayout>

@@ -11,5 +11,5 @@ class HopifyOnboardingResponse : Serializable {
 
     @SerializedName("data")
     @Expose
-    lateinit var data: List<Datum>
+    var data: List<Datum> = listOf()
 }

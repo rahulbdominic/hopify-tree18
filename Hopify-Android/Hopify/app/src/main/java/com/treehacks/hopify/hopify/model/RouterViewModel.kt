@@ -4,6 +4,7 @@ import android.util.Log
 import com.jakewharton.rxrelay2.PublishRelay
 import com.jakewharton.rxrelay2.Relay
 import com.treehacks.hopify.hopify.server.HopifyApiManager
+import com.treehacks.hopify.hopify.server.HopifyOnboardingResponse
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.subscribeBy
 
@@ -12,6 +13,7 @@ class RouterViewModel {
 
     val deepLinkRelay: Relay<String> = PublishRelay.create<String>()
     val submitDataRelay: Relay<Unit> = PublishRelay.create<Unit>()
+    val loadingRelay: Relay<Unit> = PublishRelay.create<Unit>()
     val interestContinueClicked: Relay<List<Interest>> = PublishRelay.create<List<Interest>>()
     val questionnaireContinueClicked: Relay<QuestionnaireViewModel> = PublishRelay.create<QuestionnaireViewModel>()
 
@@ -25,7 +27,7 @@ class RouterViewModel {
                                 currentScreen = Screens.MAIN_MAP,
                                 hopifyOnboardingResponse = it
                         )
-                    }.startWith(state.withParams(currentScreen = Screens.LOADING))
+                    }
                 },
                 submitDataRelay.flatMap {
                     manager.postData(state).map {
@@ -33,8 +35,9 @@ class RouterViewModel {
                                 currentScreen = Screens.MAIN_MAP,
                                 hopifyOnboardingResponse = it
                         )
-                    }.startWith(state.withParams(currentScreen = Screens.LOADING))
+                    }
                 },
+                loadingRelay.map { state.withParams(currentScreen = Screens.LOADING) },
                 interestContinueClicked.map {
                     state.withParams(
                             currentScreen = Screens.ONBOARDING_QUESTIONNAIRE,
@@ -71,7 +74,7 @@ class RouterViewModel {
     }
 
     fun getMapsActivityViewModel(): MapsViewModel {
-        return MapsViewModel(state.hopifyOnboardingResponse!!)
+        return MapsViewModel(state.hopifyOnboardingResponse ?: HopifyOnboardingResponse())
     }
 }
 

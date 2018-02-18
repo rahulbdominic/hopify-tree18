@@ -41,13 +41,13 @@ class MainActivity : AppCompatActivity(), Observer<Screens> {
 
         val branch = Branch.getInstance()
 
-        branch.initSession(Branch.BranchReferralInitListener { params, error ->
+        branch.initSession({ params, error ->
             if (error == null) {
                 Log.i("BRANCH SDK", params.toString())
             } else {
                 Log.i("BRANCH SDK", error.message)
             }
-        }, this.intent.data!!, this)
+        }, this.intent.data, this)
 
         viewModel.screenStream
                 .observeOn(AndroidSchedulers.mainThread())
@@ -79,7 +79,10 @@ class MainActivity : AppCompatActivity(), Observer<Screens> {
         val fragment: Fragment? = when (t) {
             ONBOARDING_INTEREST_SELECTION -> OnboardingInterestSelectionFragment.newInstance(viewModel.interestContinueClicked)
             ONBOARDING_QUESTIONNAIRE -> OnboardingQuestionnaireFragment.newInstance(viewModel.questionnaireContinueClicked)
-            LOADING -> LoadingFragment.newInstance()
+            LOADING -> {
+                viewModel.submitDataRelay.accept(Unit)
+                LoadingFragment.newInstance()
+            }
             MAIN_MAP -> {
                 val viewModel = viewModel.getMapsActivityViewModel()
                 val intent = MapsActivity.createIntent(this, viewModel)

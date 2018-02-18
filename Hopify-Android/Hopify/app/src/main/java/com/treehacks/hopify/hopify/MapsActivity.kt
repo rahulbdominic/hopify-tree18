@@ -4,13 +4,16 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.graphics.Color
 import android.location.Location
 import android.os.AsyncTask
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -22,8 +25,11 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.jakewharton.rxbinding2.view.clicks
 import com.treehacks.hopify.hopify.model.MapsViewModel
 import com.treehacks.hopify.hopify.server.DataParser
+import com.wafflecopter.multicontactpicker.MultiContactPicker
+import kotterknife.bindView
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
@@ -40,6 +46,9 @@ class MapsActivity :
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
+
+    private val shareButton by bindView<Button>(R.id.maps_share_button)
+    private val listViewButton by bindView<Button>(R.id.maps_list_view_button)
 
     private lateinit var mMap: GoogleMap
     private lateinit var viewModel: MapsViewModel
@@ -60,8 +69,62 @@ class MapsActivity :
         mapFragment.getMapAsync(this)
     }
 
+    override fun onStart() {
+        super.onStart()
+        setupUiElements()
+    }
+
+    private fun setupUiElements() {
+        shareButton.clicks().subscribe {
+            launchContactsPicker()
+        }
+    }
+
+    private fun launchContactsPicker() {
+        val contactPickerIntent = Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI)
+        startActivityForResult(contactPickerIntent, REQUEST_CODE_PICK_CONTACT)
+    }
+
+    private fun handleContactPicked(data: Intent) {
+        val cursor: Cursor
+        try {
+            var phoneNo: String
+            var name: String
+            val uri = data.data
+            
+            cursor = contentResolver.query(uri, null, null, null, null)
+            cursor.moveToFirst()
+            
+            val phoneIndex =cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+            val nameIndex =cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
+            
+            phoneNo = cursor.getString(phoneIndex)
+            name = cursor.getString(nameIndex)
+
+            Log.d(LOG_TAG, "NAME: " + name)
+            Log.d(LOG_TAG, "PHONE: " + phoneNo)
+
+            cursor.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_CODE_PICK_CONTACT) {
+                handleContactPicked(data!!)
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+
+        if (viewModel.data.isEmpty())
+            return
 
         // Add a marker in Sydney, Australia, and move the camera.
         viewModel.data.forEachIndexed { index, item ->
@@ -335,6 +398,8 @@ class MapsActivity :
         private const val ZOOM_LEVEL = 11f
         private const val MAPS_VIEW_MODEL = "MAPS_VIEW_MODEL_ID"
         private const val MY_PERMISSIONS_REQUEST_LOCATION = 99
+        private const val REQUEST_CODE_PICK_CONTACT = 1
+        private const val MAX_PICK_CONTACT = 10
 
         fun createIntent(context: Context, viewModel: MapsViewModel): Intent {
             val intent = Intent(context, MapsActivity::class.java)

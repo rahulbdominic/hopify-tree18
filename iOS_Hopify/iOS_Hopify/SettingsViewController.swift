@@ -8,18 +8,16 @@
 
 import UIKit
 import GooglePlaces
+import RxSwift
 
 class SettingsViewController: UIViewController {
 
-    struct Data {
-        var likes: [String] = []
-        var city: String = "San Fransisco"
-        var time: Date = Date()
-        var price: Int = 0
-        var radius: Int = 10
-    }
-
     var data = Data()
+    var requestObservable = PublishSubject<[MapObject]>()
+    var disposeBag = DisposeBag()
+
+    let myModalViewController = ModalViewController()
+
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var priceSlider: UISlider!
     @IBOutlet weak var radiusSlider: UISlider!
@@ -60,10 +58,20 @@ class SettingsViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "MapsViewController") as? MapsViewController
         showModal()
-        let when = DispatchTime.now() + 7
+        HopifyNetwork.shared.getPlacesFor(observable: requestObservable)
+        requestObservable.subscribe(onNext: { [weak self] (mapList: [MapObject]) in
+            for map in mapList {
+                print("Latitude: \(map.latitude!)\nLongitude: \(map.longitude!)\nName: \(map.name!)\n\n")
+            }
+            self?.myModalViewController.dismiss(animated: true, completion: nil)
+            controller?.dataPoints = mapList
+            self?.present(controller!, animated: true, completion: nil)
+        })
+        .disposed(by: disposeBag)
+        /*let when = DispatchTime.now() + 7
         DispatchQueue.main.asyncAfter(deadline: when) {
             self.present(controller!, animated: true, completion: nil)
-        }
+        }*/
     }
 
     func setPriceLabel() {
@@ -82,9 +90,8 @@ class SettingsViewController: UIViewController {
     }
 
     func showModal() {
-        let modalViewController = ModalViewController()
-        modalViewController.modalPresentationStyle = .overCurrentContext
-        modalViewController.modalTransitionStyle = .coverVertical
+        myModalViewController.modalPresentationStyle = .overCurrentContext
+        myModalViewController.modalTransitionStyle = .coverVertical
 
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -93,13 +100,13 @@ class SettingsViewController: UIViewController {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
 
-        present(modalViewController, animated: true, completion: {
+        present(myModalViewController, animated: true, completion: nil)/*{
             let when = DispatchTime.now() + 6
             DispatchQueue.main.asyncAfter(deadline: when) {
                 print("done")
                 modalViewController.dismiss(animated: true, completion: nil)
             }
-        })
+        })*/
     }
 
 }

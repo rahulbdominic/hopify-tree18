@@ -12,6 +12,9 @@ target 'iOS_Hopify' do
   pod 'GoogleMaps'
   pod 'NVActivityIndicatorView'
   pod 'RxAlamofire'
+  pod 'Branch'
+  pod 'PhoneNumberKit', '~> 2.1'
+  pod 'SDCAlertView'
 
   target 'iOS_HopifyTests' do
     inherit! :search_paths

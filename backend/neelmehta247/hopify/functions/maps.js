@@ -108,8 +108,6 @@ module.exports = async (lat, lng, radius = 1000, maxPrice = 4, types = [], conte
 
     const resultList = _.union(...updatedResults);
     resultList.sort((item1, item2) => {
-        console.log("item1: " + item1);
-        console.log("item2: " + item2);
         return item2.count - item1.count;
     });
 

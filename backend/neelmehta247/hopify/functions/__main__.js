@@ -56,7 +56,6 @@ const priorities = (places) => {
     places = places.filter(item => !!item);
     for (i = 0; i < places.length; i++) {
         const relevancy_rating = places.length - i;
-        console.log("places[i] at " + i + ": " + places[i]);
         const count_score = places[i].count * 3;
         const relevancy_score = (relevancy_rating * 9.5) / places.length;
 

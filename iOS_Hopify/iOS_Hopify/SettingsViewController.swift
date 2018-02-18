@@ -20,14 +20,18 @@ class SettingsViewController: UIViewController {
 
     var blurEffectView: UIVisualEffectView!
 
-    @IBOutlet weak var priceSlider: UISlider!
-    @IBOutlet weak var price: UILabel!
-
-    @IBOutlet weak var radiusSlider: UISlider!
-    @IBOutlet weak var radiusValue: UILabel!
 
     @IBOutlet weak var timeSlider: UISlider!
     @IBOutlet weak var timeLabel: UILabel!
+
+    @IBOutlet weak var priceSlider: UISlider!
+    @IBOutlet weak var price: UILabel!
+
+    @IBOutlet weak var modeOfTransport: UILabel!
+    @IBOutlet weak var modeOfTransportSlider: UISlider!
+
+    @IBOutlet weak var radiusSlider: UISlider!
+    @IBOutlet weak var radius: UILabel!
 
     @IBOutlet weak var city: UILabel!
 
@@ -53,8 +57,8 @@ class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         price.text = "Price: $"
-        radiusValue.text = String(data.radius / 1000)
-        radiusSlider.value = Float(data.radius)
+        radius.text = "Radius: \(data.radius / 1000)km"
+        radiusSlider.value = Float(data.radius) / 1000.0
         setPriceLabel()
         city.text = data.city
 
@@ -69,7 +73,7 @@ class SettingsViewController: UIViewController {
 
     @IBAction func timeValueChanged(_ sender: Any) {
         data.time = Int(timeSlider.value)
-        timeLabel.text = "Time: \(timeSlider.value) hr\(Int(timeSlider.value) == 0 ? "" : "s")"
+        timeLabel.text = "Time: \(Int(timeSlider.value)) hr\(Int(timeSlider.value) == 0 ? "" : "s")"
     }
 
     @IBAction func priceValueChanged(_ sender: Any) {
@@ -77,8 +81,23 @@ class SettingsViewController: UIViewController {
         setPriceLabel()
     }
 
+    @IBAction func modeOfTransportChanged(_ sender: Any) {
+        guard let transport = TransportType(rawValue: Int(modeOfTransportSlider.value)) else {
+            return
+        }
+        data.transport = transport
+        switch transport {
+        case .drive:
+            modeOfTransport.text = "Mode of Transport: Drive"
+        case .walk:
+            modeOfTransport.text = "Mode of Transport: Walk"
+        case .transit:
+            modeOfTransport.text = "Mode of Transport: Transit"
+        }
+    }
+
     @IBAction func slideValueChanged(_ sender: Any) {
-        radiusValue.text = String(Int(radiusSlider.value))
+        radius.text = "Radius: \(Int(radiusSlider.value))km"
         data.radius = Int(radiusSlider.value) * 1000
     }
 

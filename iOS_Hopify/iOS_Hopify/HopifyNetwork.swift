@@ -13,7 +13,7 @@ import GooglePlaces
 func initLoc() -> CLLocation {
     var loc = CLLocation()
     let geoCoder = CLGeocoder()
-    geoCoder.geocodeAddressString("San Fransisco") { (placemarks, error) in
+    geoCoder.geocodeAddressString("San Francisco") { (placemarks, error) in
         guard
             let placemarks = placemarks,
             let location = placemarks.first?.location
@@ -27,15 +27,22 @@ func initLoc() -> CLLocation {
     return loc
 }
 
+enum TransportType: Int {
+    case drive = 0
+    case walk = 1
+    case transit = 2
+}
+
 struct Data {
     var likes: [String] = []
     var city: String = "San Fransisco"
     var cityLocation: CLLocation = initLoc()
     var lat: Double = 0
     var long: Double = 0
+    var transport: TransportType = .drive
     var time: Int = 5
     var price: Int = 0
-    var radius: Int = 1000
+    var radius: Int = 25000
 }
 
 struct MapObject {
@@ -48,7 +55,7 @@ class HopifyNetwork {
 
     let disposeBag = DisposeBag()
     //let sourceStringURL = "https://neelmehta247.lib.id/hopify@dev/?lat=37.427475&lng=-122.1697190&radius=2000&interests=[%22cafe%22,%22bar%22,%22plumber%22]&maxPrice=4&hours=25"
-    let url = NSURLComponents(string: "https://neelmehta247.lib.id/hopify@1.1.0/")!
+    let url = NSURLComponents(string: "https://neelmehta247.lib.id/hopify@1.1.2/")!
 
     static let shared = HopifyNetwork()
 

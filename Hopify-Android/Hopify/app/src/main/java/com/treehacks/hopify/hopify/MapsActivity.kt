@@ -82,18 +82,6 @@ class MapsActivity :
     override fun onStart() {
         super.onStart()
 
-        Branch.getInstance().initSession(object : Branch.BranchReferralInitListener {
-            override fun onInitFinished(referringParams: JSONObject, error: BranchError?) {
-                if (error == null) {
-                    Log.e("BRANCH SDK", referringParams.toString())
-                    Log.e("BRANCH SDK", referringParams.toString())
-                } else {
-                    Log.e("BRANCH SDK", referringParams.toString())
-                    Log.e("BRANCH SDK", error.message)
-                }
-            }
-        }, this.intent.data, this)
-
         setupUiElements()
     }
 

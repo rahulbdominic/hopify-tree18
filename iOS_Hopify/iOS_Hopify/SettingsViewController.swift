@@ -16,7 +16,7 @@ class SettingsViewController: UIViewController {
     var requestObservable = PublishSubject<[MapObject]>()
     var disposeBag = DisposeBag()
 
-    let myModalViewController = ModalViewController()
+    let myModalViewController = ModalLoadingViewController()
 
     var blurEffectView: UIVisualEffectView!
 

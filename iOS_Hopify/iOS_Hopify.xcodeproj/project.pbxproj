@@ -21,7 +21,7 @@
 		CC46F5502038ADAC004F024E /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC46F54F2038ADAC004F024E /* CellView.swift */; };
 		CC46F5522038B153004F024E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC46F5512038B153004F024E /* SettingsViewController.swift */; };
 		CCBF43182038F4600029C5AC /* HopifyNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBF43172038F4600029C5AC /* HopifyNetwork.swift */; };
-		CCF9B7722038DEF1001E1DFE /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF9B7712038DEF1001E1DFE /* ModalViewController.swift */; };
+		CCF9B7722038DEF1001E1DFE /* ModalLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF9B7712038DEF1001E1DFE /* ModalLoadingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +68,7 @@
 		CC46F5512038B153004F024E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		CCBF43172038F4600029C5AC /* HopifyNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HopifyNetwork.swift; sourceTree = "<group>"; };
 		CCC1D6DB2039731F005B4C7C /* iOS_Hopify.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS_Hopify.entitlements; sourceTree = "<group>"; };
-		CCF9B7712038DEF1001E1DFE /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		CCF9B7712038DEF1001E1DFE /* ModalLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalLoadingViewController.swift; sourceTree = "<group>"; };
 		E64C9E690B2B77B7B07AA5D6 /* Pods-iOS_Hopify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Hopify.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOS_Hopify/Pods-iOS_Hopify.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,7 +140,7 @@
 				CC46F5232038AD24004F024E /* LikesViewController.swift */,
 				CCBF43172038F4600029C5AC /* HopifyNetwork.swift */,
 				CC46F54F2038ADAC004F024E /* CellView.swift */,
-				CCF9B7712038DEF1001E1DFE /* ModalViewController.swift */,
+				CCF9B7712038DEF1001E1DFE /* ModalLoadingViewController.swift */,
 				CC46F5252038AD24004F024E /* Main.storyboard */,
 				CC46F5282038AD24004F024E /* Assets.xcassets */,
 				CC46F52A2038AD24004F024E /* LaunchScreen.storyboard */,
@@ -337,10 +337,12 @@
 				"${BUILT_PRODUCTS_DIR}/Branch/Branch.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SDCAlertView/SDCAlertView.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -348,10 +350,12 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Branch.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhoneNumberKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDCAlertView.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -504,7 +508,7 @@
 				CC46F5222038AD24004F024E /* AppDelegate.swift in Sources */,
 				CCBF43182038F4600029C5AC /* HopifyNetwork.swift in Sources */,
 				CC46F5502038ADAC004F024E /* CellView.swift in Sources */,
-				CCF9B7722038DEF1001E1DFE /* ModalViewController.swift in Sources */,
+				CCF9B7722038DEF1001E1DFE /* ModalLoadingViewController.swift in Sources */,
 				CC46F5522038B153004F024E /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

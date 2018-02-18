@@ -12,28 +12,48 @@ var __uuid__ = ""
 import UIKit
 import MapKit
 import Branch
-import Contacts
+import PhoneNumberKit
+import SDCAlertView
 
 class MapsViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
 
     @IBAction func shareRoute(_ sender: Any) {
-        let buo = BranchUniversalObject(canonicalIdentifier: "")
+        let alertController = UIAlertController(title: "Share Router", message: "", preferredStyle: .alert)
 
-        // index on Apple Spotlight
-        buo.locallyIndex = true
+        alertController.addAction(UIAlertAction(title: "Send", style: .default, handler: {
+            alert -> Void in
+            let textField = alertController.textFields![0] as UITextField
 
-        // index on Google, Branch, etc
-        buo.publiclyIndex = true
+            let number = textField.text!
 
-        let lp: BranchLinkProperties = BranchLinkProperties()
-        lp.addControlParam("uuid", withValue: __uuid__)
+            let buo = BranchUniversalObject(canonicalIdentifier: "")
 
-        buo.getShortUrl(with: lp) { (url, error) in
-            print(url ?? "")
-            HopifyNetwork.shared.sendDeepLinkToPhone(number: "650-575-8401", url: url!)
-        }
+            // index on Apple Spotlight
+            buo.locallyIndex = true
+
+            // index on Google, Branch, etc
+            buo.publiclyIndex = true
+
+            let lp: BranchLinkProperties = BranchLinkProperties()
+            lp.addControlParam("uuid", withValue: __uuid__)
+
+            buo.getShortUrl(with: lp) { (url, error) in
+                print(url ?? "")
+                HopifyNetwork.shared.sendDeepLinkToPhone(number: number, url: url!)
+            }
+        }))
+
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        alertController.addTextField(configurationHandler: {(textField : UITextField!) -> Void in
+            textField.placeholder = "Phone number"
+            textField.keyboardType = .phonePad
+        })
+
+        self.present(alertController, animated: true, completion: nil)
     }
+
 
 
     var dataPoints: [MapObject]!
@@ -55,17 +75,17 @@ class MapsViewController: UIViewController, MKMapViewDelegate {
         mapView.delegate = self
 
         /*let firstPoint = CLLocation(latitude: dataPoints[0].latitude, longitude: dataPoints[0].longitude)
-        centerMapOnLocation(location: firstPoint)*/
+         centerMapOnLocation(location: firstPoint)*/
 
         /*for dataPoint in dataPoints {
-            let annotation = MKPointAnnotation()
+         let annotation = MKPointAnnotation()
 
-            //let point = CLLocation(latitude: dataPoint.latitude, longitude: dataPoint.longitude)
-            annotation.coordinate = CLLocationCoordinate2D(latitude: dataPoint.latitude, longitude: dataPoint.longitude)
-            annotation.title = dataPoint.name
+         //let point = CLLocation(latitude: dataPoint.latitude, longitude: dataPoint.longitude)
+         annotation.coordinate = CLLocationCoordinate2D(latitude: dataPoint.latitude, longitude: dataPoint.longitude)
+         annotation.title = dataPoint.name
 
-            mapView.addAnnotation(annotation)
-        }*/
+         mapView.addAnnotation(annotation)
+         }*/
 
         for (index, dataPoint) in dataPoints.enumerated() {
 
@@ -139,57 +159,5 @@ class MapsViewController: UIViewController, MKMapViewDelegate {
         renderer.lineWidth = 4.0
 
         return renderer
-    }
-}
-
-extension MapsViewController {
-    func accessContacts() {
-        let status = CNContactStore.authorizationStatus(for: .contacts)
-        if status == .denied || status == .restricted {
-            presentSettingsActionSheet()
-            return
-        }
-
-        // open it
-
-        let store = CNContactStore()
-        store.requestAccess(for: .contacts) { granted, error in
-            guard granted else {
-                DispatchQueue.main.async {
-                    self.presentSettingsActionSheet()
-                }
-                return
-            }
-
-            // get the contacts
-
-            var contacts = [CNContact]()
-            let request = CNContactFetchRequest(keysToFetch: [CNContactIdentifierKey as NSString, CNContactFormatter.descriptorForRequiredKeys(for: .fullName)])
-            do {
-                try store.enumerateContacts(with: request) { contact, stop in
-                    contacts.append(contact)
-                }
-            } catch {
-                print(error)
-            }
-
-            // do something with the contacts array (e.g. print the names)
-
-            let formatter = CNContactFormatter()
-            formatter.style = .fullName
-            for contact in contacts {
-                print(formatter.string(from: contact) ?? "???")
-            }
-        }
-    }
-
-    func presentSettingsActionSheet() {
-        let alert = UIAlertController(title: "Permission to Contacts", message: "This app needs access to contacts in order to ...", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Go to Settings", style: .default) { _ in
-            let url = URL(string: UIApplicationOpenSettingsURLString)!
-            UIApplication.shared.open(url)
-        })
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(alert, animated: true)
     }
 }

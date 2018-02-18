@@ -27,10 +27,20 @@ module.exports = async (lat, lng, radius, maxPrice, hours, interests = [], conte
 
     const vertices = placeids(prioritized);
     const edges = pairs(vertices.length);
-    const edgeMap = await distances(prioritized);
+    const distancesData = await distances(prioritized, lat, lng);
+    const edgeMap = distancesData.data;
+    const minMaxData = distancesData.minMaxData;
+    edgeMap[minMaxData.minDistPlaceID][minMaxData.maxDistPlaceID] = 0;
+    edgeMap[minMaxData.maxDistPlaceID][minMaxData.minDistPlaceID] = 0;
 
     const tps = await lib.neelmehta247.hopify['@1.0.0'].tsp(vertices, edges, edgeMap);
-    const finalArray = tps.map(position => prioritized[parseInt(position)]);
+    const offset = tps.indexOf(minMaxData.minDistIndex.toString());
+
+    const finalArray = [];
+    for (i = 0; i < tps.length; i++) {
+        const toPut = tps[(i + offset) % tps.length];
+        finalArray.push(prioritized[parseInt(toPut)]);
+    }
     const docName = uuid();
 
     // Write to Firebase
@@ -42,7 +52,7 @@ module.exports = async (lat, lng, radius, maxPrice, hours, interests = [], conte
     };
 };
 
-const priorities = (places = []) => {
+const priorities = (places) => {
     for (i = 0; i < places.length; i++) {
         const relevancy_rating = places.length - i;
         const count_score = places[i].count * 3;
@@ -83,10 +93,49 @@ const pairs = (length) => {
     return mainlist;
 }
 
-const distances = async (places) => {
+const distances = async (places, lat, lng) => {
     journeys = {};
 
+    const minMaxData = {};
+
     for (i = 0; i < places.length; i++) {
+        const currentPlaceId = places[i].place_id;
+        const latLngComp = await axios.get(DISTANCE_MATRIX_URL, {
+            params: {
+                origins: `place_id:${currentPlaceId}`,
+                destinations: `${lat},${lng}`,
+                key: GOOGLE_API_KEY
+            }
+        });
+
+        const distFromHome = latLngComp.data.rows[0].elements[0].duration.value
+
+        // Set min
+        if (minMaxData.hasOwnProperty("minDist")) {
+            if (distFromHome <= minMaxData.minDist) {
+                minMaxData.minDist = distFromHome;
+                minMaxData.minDistPlaceID = currentPlaceId;
+                minMaxData.minDistIndex = i;
+            }
+        } else {
+            // Doesn't have any data, so set it.
+            minMaxData.minDist = distFromHome;
+            minMaxData.minDistPlaceID = currentPlaceId;
+            minMaxData.minDistIndex = i;
+        }
+
+        // Set max
+        if (minMaxData.hasOwnProperty("maxDist")) {
+            if (distFromHome > minMaxData.maxDist) {
+                minMaxData.maxDist = distFromHome;
+                minMaxData.maxDistPlaceID = currentPlaceId;
+            }
+        } else {
+            // Doesn't have max data, so set it
+            minMaxData.maxDist = distFromHome;
+            minMaxData.maxDistPlaceID = currentPlaceId;
+        }
+
         for (j = i + 1; j < places.length; j++) {
             iplace_id = places[i].place_id;
             jplace_id = places[j].place_id;
@@ -114,5 +163,7 @@ const distances = async (places) => {
         }
     }
 
-    return journeys;
+    return {
+        minMaxData, data: journeys
+    };
 }

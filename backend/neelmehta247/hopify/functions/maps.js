@@ -69,51 +69,46 @@ module.exports = async (lat, lng, radius = 1000, maxPrice = 4, types = [], conte
     let dataSet = new Set();
     // This is not giving good results as of now because it appends all the types one after the other.
     // Change so that it puts the first of each type first in the overall list.
-    const resultList = await Promise.all(promiseList).then(resolved => {
-        const updatedResults = resolved.map(({ data }) => {
-            // Data for all the individual types, one by one
-            const results = data.results;
-            return results.map(result => {
-                // Each individual place result
+    const resolved = await Promise.all(promiseList);
+    const updatedResults = resolved.map(({ data }) => {
+        // Data for all the individual types, one by one
+        const results = data.results;
+        return results.map(result => {
+            // Each individual place result
 
-                // Dedupe data
-                if (!dataSet.has(result.id)) {
-                    dataSet.add(result.id);
+            // Dedupe data
+            if (!dataSet.has(result.id)) {
+                dataSet.add(result.id);
 
-                    let count = 0;
-                    result.types.forEach(resultType => {
-                        // Every type for the result
-                        if (types.includes(resultType)) {
-                            count++;
-                        }
-                    });
+                let count = 0;
+                result.types.forEach(resultType => {
+                    // Every type for the result
+                    if (types.includes(resultType)) {
+                        count++;
+                    }
+                });
 
-                    // Assign a count
-                    result.count = count;
-                    return result;
-                }
-            });
+                // Assign a count
+                result.count = count;
+                return result;
+            }
         });
+    });
 
-        // Don't need to sort now. Solve the k sorted arrays issue later.
-        // const sortedResults = updatedResults.map(result => {
-        //     result.sort((item1, item2) => {
-        //         // Makes it so that higher counts bubble up,
-        //         // while same counts maintain Google's ordering
-        //         return item2.count - item1.count;
-        //     });
+    // Don't need to sort now. Solve the k sorted arrays issue later.
+    // const sortedResults = updatedResults.map(result => {
+    //     result.sort((item1, item2) => {
+    //         // Makes it so that higher counts bubble up,
+    //         // while same counts maintain Google's ordering
+    //         return item2.count - item1.count;
+    //     });
 
-        //     return result;
-        // });
+    //     return result;
+    // });
 
-        const list = _.union(...updatedResults);
-        list.sort((item1, item2) => {
-            return item2.count - item1.count;
-        });
-
-        return list;
-    }).catch(error => {
-        throw error;
+    const resultList = _.union(...updatedResults);
+    resultList.sort((item1, item2) => {
+        return item2.count - item1.count;
     });
 
     return resultList;

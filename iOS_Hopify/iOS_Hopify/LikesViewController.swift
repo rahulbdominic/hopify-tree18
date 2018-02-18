@@ -92,6 +92,8 @@ class LikesViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        likeTableView.frame = CGRect(x: likeTableView.frame.origin.x, y: likeTableView.frame.origin.y, width: view.frame.width, height: likeTableView.frame.height)
+
         // Sets self as tableview delegate
         likeTableView
             .rx.setDelegate(self)
@@ -105,21 +107,19 @@ class LikesViewController: UIViewController, UITableViewDelegate {
             .bind(to: likeTableView.rx.items) { (tableView, row, element) in
                 let cell = tableView.dequeueReusableCell(withIdentifier: "likeCell") as! ChoiceCell
                 cell.titleLabel.text = "\(element)"
-                cell.cellImage.image = UIImage(named: "Icon-41")
 
                 //cell.cellImage?.image = UIImage(named: "Icon-40")
 
-                //cell.textLabel?.text = "\(element)"
                 return cell
             }
             .disposed(by: disposeBag)
 
         likeTableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
-                let cell = self?.likeTableView.cellForRow(at: indexPath)
-                self?.selectedLikes.append((cell?.textLabel?.text)!)
-                cell?.backgroundColor = UIColor(displayP3Red: 0, green: 255, blue: 0, alpha: 0.5)
-                cell?.isSelected = false
+                let cell = self?.likeTableView.cellForRow(at: indexPath) as! ChoiceCell
+                self?.selectedLikes.append(cell.titleLabel.text!)
+                cell.backgroundColor = UIColor(displayP3Red: 0, green: 255, blue: 0, alpha: 0.5)
+                cell.isSelected = false
                 print(self?.selectedLikes as! [String])
             })
             .disposed(by: disposeBag)

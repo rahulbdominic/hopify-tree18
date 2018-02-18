@@ -18,6 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         GMSPlacesClient.provideAPIKey("AIzaSyA1gepd5i3XZNsv5W7v8sywkokLSeFBBno")
+
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let nav1 = UINavigationController()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mainView = storyboard.instantiateViewController(withIdentifier: "LikesViewController") as? LikesViewController
+        mainView?.title = "City Crawler"
+        nav1.viewControllers = [mainView!]
+        self.window!.rootViewController = nav1
+        self.window?.makeKeyAndVisible()
         return true
     }
 

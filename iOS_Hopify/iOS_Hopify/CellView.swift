@@ -12,28 +12,11 @@ struct ChoiceModel {
     let title: String
 }
 
-final class ChoiceCell: UITableViewCell {
-    var titleLabel: UILabel! = UILabel()
+class ChoiceCell: UITableViewCell {
+    var title: UILabel! = UILabel()
 
-    var choiceModel: ChoiceModel? {
-        didSet {
-            layoutCell()
-        }
-    }
-
-    override var isSelected: Bool {
-        didSet {
-            layoutCell()
-        }
-    }
-
-    var displayAnswers: Bool = false {
-        didSet {
-            layoutCell()
-        }
-    }
-
-    private func layoutCell() {
-        titleLabel.text = choiceModel?.title
-    }
+    @IBOutlet weak var cellImage: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    //@IBOutlet weak var cellImage: UIImageView!
+    //@IBOutlet weak var title: UILabel!
 }

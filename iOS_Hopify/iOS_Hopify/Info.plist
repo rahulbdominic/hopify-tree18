@@ -43,5 +43,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>branch_key</key>
+	<string>key_live_iotJ2wNFXCAlBkr903mKKcnaqsgYFWtB</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Need to access contacts to be able to send your friend a text message sharing your plan.</string>
 </dict>
 </plist>

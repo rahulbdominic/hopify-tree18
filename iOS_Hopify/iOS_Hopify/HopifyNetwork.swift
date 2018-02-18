@@ -55,7 +55,7 @@ class HopifyNetwork {
 
     let disposeBag = DisposeBag()
     //let sourceStringURL = "https://neelmehta247.lib.id/hopify@dev/?lat=37.427475&lng=-122.1697190&radius=2000&interests=[%22cafe%22,%22bar%22,%22plumber%22]&maxPrice=4&hours=25"
-    let url = NSURLComponents(string: "https://neelmehta247.lib.id/hopify@1.1.3/")!
+    let url = NSURLComponents(string: "https://neelmehta247.lib.id/hopify@1.2.0/")!
 
     static let shared = HopifyNetwork()
 
@@ -81,6 +81,10 @@ class HopifyNetwork {
                 var mapList: [MapObject] = []
 
                 if let jsonData = json as? [String: AnyObject] {
+                    if let myUuid = jsonData["uuid"] as? String {
+                        __uuid__ = myUuid
+                    }
+
                     if let jsonList = jsonData["data"] as? [AnyObject] {
                         for item in jsonList {
                             var map = MapObject(latitude: nil, longitude: nil, name: nil)
@@ -107,6 +111,16 @@ class HopifyNetwork {
                     }
                 }
                 observable.onNext(mapList)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func sendDeepLinkToPhone(number: String, url: String) {
+        let newURLString = "https://neelmehta247.lib.id/hopify@1.2.0/message/?number=\(number)&url=\(url)"
+        RxAlamofire.requestJSON(.get, newURLString)
+            .debug()
+            .subscribe(onNext: { (r, json) in
+                print("Success")
             })
             .disposed(by: disposeBag)
     }

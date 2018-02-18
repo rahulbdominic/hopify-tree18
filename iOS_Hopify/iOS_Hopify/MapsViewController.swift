@@ -6,11 +6,59 @@
 //  Copyright © 2018 Bart Chrzaszcz. All rights reserved.
 //
 
+// Globals For The Win!!!
+var __uuid__ = ""
+
 import UIKit
 import MapKit
+import Branch
+import Contacts
 
 class MapsViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
+
+    @IBAction func shareRoute(_ sender: Any) {
+        accessContacts()
+        // required: canonicalIdentifier or title
+        // recommended: title, contentDescription, imageUrl for social media cards
+        let buo = BranchUniversalObject(canonicalIdentifier: "")
+        /*buo.canonicalUrl = "https://example.com/content/123"
+        buo.title = "Content 123 Title"
+        buo.contentDescription = "Content 123 Description \(Date())"
+        buo.imageUrl = "http://lorempixel.com/400/400/"
+        buo.keywords = ["awesome", "things"]*/
+
+        // index on Apple Spotlight
+        buo.locallyIndex = true
+
+        // index on Google, Branch, etc
+        buo.publiclyIndex = true
+
+        let lp: BranchLinkProperties = BranchLinkProperties()
+        lp.addControlParam("uuid", withValue: __uuid__)
+        /*lp.channel = "facebook"
+        lp.feature = "sharing"
+        lp.campaign = "content 123 launch"
+        lp.stage = "new user"
+        lp.tags = ["one", "two", "three"]
+
+        lp.addControlParam("$desktop_url", withValue: "http://example.com/desktop")
+        lp.addControlParam("$ios_url", withValue: "http://example.com/ios")
+        lp.addControlParam("$ipad_url", withValue: "http://example.com/ios")
+        lp.addControlParam("$android_url", withValue: "http://example.com/android")
+        lp.addControlParam("$match_duration", withValue: "2000")
+
+        lp.addControlParam("custom_data", withValue: "yes")
+        lp.addControlParam("look_at", withValue: "this")
+        lp.addControlParam("nav_to", withValue: "over here")
+        lp.addControlParam("random", withValue: UUID.init().uuidString)*/
+
+        buo.getShortUrl(with: lp) { (url, error) in
+            print(url ?? "")
+            HopifyNetwork.shared.sendDeepLinkToPhone(number: "650-575-8401", url: url!)
+        }
+    }
+
 
     var dataPoints: [MapObject]!
 
@@ -115,5 +163,57 @@ class MapsViewController: UIViewController, MKMapViewDelegate {
         renderer.lineWidth = 4.0
 
         return renderer
+    }
+}
+
+extension MapsViewController {
+    func accessContacts() {
+        let status = CNContactStore.authorizationStatus(for: .contacts)
+        if status == .denied || status == .restricted {
+            presentSettingsActionSheet()
+            return
+        }
+
+        // open it
+
+        let store = CNContactStore()
+        store.requestAccess(for: .contacts) { granted, error in
+            guard granted else {
+                DispatchQueue.main.async {
+                    self.presentSettingsActionSheet()
+                }
+                return
+            }
+
+            // get the contacts
+
+            var contacts = [CNContact]()
+            let request = CNContactFetchRequest(keysToFetch: [CNContactIdentifierKey as NSString, CNContactFormatter.descriptorForRequiredKeys(for: .fullName)])
+            do {
+                try store.enumerateContacts(with: request) { contact, stop in
+                    contacts.append(contact)
+                }
+            } catch {
+                print(error)
+            }
+
+            // do something with the contacts array (e.g. print the names)
+
+            let formatter = CNContactFormatter()
+            formatter.style = .fullName
+            for contact in contacts {
+                print(formatter.string(from: contact) ?? "???")
+            }
+        }
+    }
+
+    func presentSettingsActionSheet() {
+        let alert = UIAlertController(title: "Permission to Contacts", message: "This app needs access to contacts in order to ...", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Go to Settings", style: .default) { _ in
+            let url = URL(string: UIApplicationOpenSettingsURLString)!
+            UIApplication.shared.open(url)
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(alert, animated: true)
     }
 }

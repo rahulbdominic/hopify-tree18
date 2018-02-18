@@ -36,4 +36,6 @@ final class ChoiceCell: UITableViewCell {
     private func layoutCell() {
         titleLabel.text = choiceModel?.title
     }
+
+
 }

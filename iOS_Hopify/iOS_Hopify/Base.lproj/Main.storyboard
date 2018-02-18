@@ -172,13 +172,24 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Jgv-fY-v3P">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="-17" width="375" height="643"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CwV-Kf-jVz">
+                                <rect key="frame" x="150" y="626" width="74" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Share"/>
+                                <connections>
+                                    <action selector="shareRoute:" destination="rkR-Bq-O6g" eventType="touchUpInside" id="qf3-hV-3xE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Jgv-fY-v3P" firstAttribute="bottom" secondItem="8ne-dh-qob" secondAttribute="bottom" id="4Cu-Bk-Md1"/>
-                            <constraint firstItem="Jgv-fY-v3P" firstAttribute="top" secondItem="8ne-dh-qob" secondAttribute="top" id="JGA-td-cW8"/>
+                            <constraint firstItem="Jgv-fY-v3P" firstAttribute="bottom" secondItem="8ne-dh-qob" secondAttribute="bottom" constant="-41" id="4Cu-Bk-Md1"/>
+                            <constraint firstItem="8ne-dh-qob" firstAttribute="bottom" secondItem="CwV-Kf-jVz" secondAttribute="bottom" constant="5" id="83f-DQ-p63"/>
+                            <constraint firstItem="CwV-Kf-jVz" firstAttribute="leading" secondItem="8ne-dh-qob" secondAttribute="leading" constant="150" id="Hpp-RU-IWj"/>
+                            <constraint firstItem="Jgv-fY-v3P" firstAttribute="top" secondItem="8ne-dh-qob" secondAttribute="top" constant="-37" id="JGA-td-cW8"/>
+                            <constraint firstItem="8ne-dh-qob" firstAttribute="trailing" secondItem="CwV-Kf-jVz" secondAttribute="trailing" constant="151" id="qIW-zf-lxL"/>
                             <constraint firstItem="Jgv-fY-v3P" firstAttribute="leading" secondItem="8ne-dh-qob" secondAttribute="leading" id="sRM-iO-4dX"/>
                             <constraint firstItem="Jgv-fY-v3P" firstAttribute="trailing" secondItem="8ne-dh-qob" secondAttribute="trailing" id="yuS-Pa-IYU"/>
                         </constraints>

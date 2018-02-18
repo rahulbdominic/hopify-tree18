@@ -67,10 +67,12 @@ const distances = async (places = [], hours, lat, lng) => {
           }
       }).then(result => {
         data = result.data
-        journeys[iplace_id][jplace_id] = data.rows[0].elements[0].duration.value
-        journeys[jplace_id][iplace_id] = data.rows[0].elements[0].duration.value
+        // To add hours
+        journeys[iplace_id][jplace_id] = data.rows[0].elements[0].duration.value + 3600
+        journeys[jplace_id][iplace_id] = data.rows[0].elements[0].duration.value + 3600
       });
     }
   }
+
   return journeys;
 }

@@ -35,7 +35,7 @@ enum TransportType: Int {
 
 struct Data {
     var likes: [String] = []
-    var city: String = "San Fransisco"
+    var city: String = "San Francisco"
     var cityLocation: CLLocation = initLoc()
     var lat: Double = 0
     var long: Double = 0
@@ -55,7 +55,7 @@ class HopifyNetwork {
 
     let disposeBag = DisposeBag()
     //let sourceStringURL = "https://neelmehta247.lib.id/hopify@dev/?lat=37.427475&lng=-122.1697190&radius=2000&interests=[%22cafe%22,%22bar%22,%22plumber%22]&maxPrice=4&hours=25"
-    let url = NSURLComponents(string: "https://neelmehta247.lib.id/hopify@1.1.2/")!
+    let url = NSURLComponents(string: "https://neelmehta247.lib.id/hopify@1.1.3/")!
 
     static let shared = HopifyNetwork()
 
@@ -106,12 +106,7 @@ class HopifyNetwork {
                         }
                     }
                 }
-
-                if mapList.count == 0 {
-                    observable.onCompleted()
-                } else {
-                    observable.onNext(mapList)
-                }
+                observable.onNext(mapList)
             })
             .disposed(by: disposeBag)
     }

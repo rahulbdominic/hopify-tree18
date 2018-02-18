@@ -14,7 +14,7 @@ class MapsViewController: UIViewController, MKMapViewDelegate {
 
     var dataPoints: [MapObject]!
 
-    // set initial location in San Fransisco
+    // set initial location in San Francisco
     let initialLocation = CLLocation(latitude: 37.766007, longitude: -122.439961)
     let regionRadius: CLLocationDistance = 10000
 

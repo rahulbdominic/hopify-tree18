@@ -35,7 +35,7 @@ class SettingsViewController: UIViewController {
 
     @IBOutlet weak var city: UILabel!
 
-    var cityName: String? = "" {
+    var cityName: String? = "San Francisco" {
         didSet {
             city.text = cityName
             data.city = cityName!
@@ -61,7 +61,8 @@ class SettingsViewController: UIViewController {
         radiusSlider.value = Float(data.radius) / 1000.0
         setPriceLabel()
         city.text = data.city
-
+        data.city = "San Francisco"
+        cityName = "San Francisco"
     }
 
     // Present the Autocomplete view controller when the button is pressed.
@@ -107,13 +108,26 @@ class SettingsViewController: UIViewController {
         showModal()
         HopifyNetwork.shared.getPlacesFor(observable: requestObservable, data: data)
         requestObservable.subscribe(onNext: { [weak self] (mapList: [MapObject]) in
+            guard let strongSelf = self else {
+                return
+            }
             for map in mapList {
                 print("Latitude: \(map.latitude!)\nLongitude: \(map.longitude!)\nName: \(map.name!)\n\n")
             }
-            self?.myModalViewController.dismiss(animated: true, completion: nil)
             self?.blurEffectView.removeFromSuperview()
-            controller?.dataPoints = mapList
-            self?.navigationController?.pushViewController(controller!, animated: true)
+
+            self?.myModalViewController.dismiss(animated: true, completion: {
+                if mapList.count != 0 {
+                    controller?.dataPoints = mapList
+                    strongSelf.navigationController?.pushViewController(controller!, animated: true)
+                } else {
+                    let alert = UIAlertController(title: "Alert", message: "We couldn't find you a good route for you given your preferences. Try something else!", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: { action in
+                        //alert.dismiss(animated: true, completion: nil)
+                    }))
+                    self?.present(alert, animated: true, completion: nil)
+                }
+            })
         })
         .disposed(by: disposeBag)
     }

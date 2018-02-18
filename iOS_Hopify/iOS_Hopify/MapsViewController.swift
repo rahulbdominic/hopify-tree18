@@ -62,7 +62,7 @@ class MapsViewController: UIViewController, MKMapViewDelegate {
 
             // 5.
             let sourceAnnotation = MKPointAnnotation()
-            sourceAnnotation.title = dataPoints[index - 1].name
+            sourceAnnotation.title = "\(index - 1). \(dataPoints[index - 1].name!)"
 
             if let location = sourcePlacemark.location {
                 sourceAnnotation.coordinate = location.coordinate
@@ -70,7 +70,7 @@ class MapsViewController: UIViewController, MKMapViewDelegate {
 
 
             let destinationAnnotation = MKPointAnnotation()
-            destinationAnnotation.title = dataPoint.name
+            destinationAnnotation.title = "\(index). \(dataPoint.name!)"
 
             if let location = destinationPlacemark.location {
                 destinationAnnotation.coordinate = location.coordinate

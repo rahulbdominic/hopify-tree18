@@ -24,15 +24,29 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var radiusValue: UILabel!
     @IBOutlet weak var city: UILabel!
     @IBOutlet weak var date: UIDatePicker!
-    var cityTuple: (name: String?, address: String?, attributions: String?) = ("","","") {
+    var cityName: String? = "" {
         didSet {
-            city.text = cityTuple.name
+            city.text = cityName
+            data.city = cityName!
+
+            let geoCoder = CLGeocoder()
+            geoCoder.geocodeAddressString(cityName!) { [weak self] (placemarks, error) in
+                guard
+                    let placemarks = placemarks,
+                    let location = placemarks.first?.location
+                    else {
+                        // handle no location found
+                        return
+                }
+                // Use your location
+                self?.data.cityLocation = location
+            }
         }
     }
 
     override func viewDidLoad() {
         price.text = "Price: $"
-        radiusValue.text = String(data.radius)
+        radiusValue.text = String(data.radius / 1000)
         radiusSlider.value = Float(data.radius)
         setPriceLabel()
         city.text = data.city
@@ -47,18 +61,20 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func priceValueChanged(_ sender: Any) {
+        data.price = Int(priceSlider.value)
         setPriceLabel()
     }
 
     @IBAction func slideValueChanged(_ sender: Any) {
         radiusValue.text = String(Int(radiusSlider.value))
+        data.radius = Int(radiusSlider.value) * 1000
     }
 
     @IBAction func getRecommendation(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "MapsViewController") as? MapsViewController
         showModal()
-        HopifyNetwork.shared.getPlacesFor(observable: requestObservable)
+        HopifyNetwork.shared.getPlacesFor(observable: requestObservable, data: data)
         requestObservable.subscribe(onNext: { [weak self] (mapList: [MapObject]) in
             for map in mapList {
                 print("Latitude: \(map.latitude!)\nLongitude: \(map.longitude!)\nName: \(map.name!)\n\n")
@@ -118,7 +134,7 @@ extension SettingsViewController: GMSAutocompleteViewControllerDelegate {
         print("Place name: \(place.name)")
         print("Place address: \(place.formattedAddress)")
         print("Place attributions: \(place.attributions)")
-        cityTuple = (place.name, place.formattedAddress, place.attributions?.string)
+        cityName = place.name
         dismiss(animated: true, completion: nil)
     }
 

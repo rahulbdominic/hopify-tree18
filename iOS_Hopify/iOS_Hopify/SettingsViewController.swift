@@ -81,7 +81,8 @@ class SettingsViewController: UIViewController {
             }
             self?.myModalViewController.dismiss(animated: true, completion: nil)
             controller?.dataPoints = mapList
-            self?.present(controller!, animated: true, completion: nil)
+            //self?.present(controller!, animated: true, completion: nil)
+            self?.navigationController?.pushViewController(controller!, animated: true)
         })
         .disposed(by: disposeBag)
         /*let when = DispatchTime.now() + 7

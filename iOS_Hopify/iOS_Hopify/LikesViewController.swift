@@ -85,6 +85,6 @@ class LikesViewController: UIViewController, UITableViewDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController
         controller?.data.likes = selectedLikes
-        self.present(controller!, animated: true, completion: nil)
+        self.navigationController?.pushViewController(controller!, animated: true)
     }
 }

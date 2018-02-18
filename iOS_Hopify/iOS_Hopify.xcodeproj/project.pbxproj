@@ -1,0 +1,805 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7EC174ABDA9EFB631DC859A5 /* Pods_iOS_HopifyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F4858A9A6C67065458B4D5 /* Pods_iOS_HopifyTests.framework */; };
+		A9F2AC287C2C414F180E9409 /* Pods_iOS_Hopify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FDA3EFD8DCA6A0315586115 /* Pods_iOS_Hopify.framework */; };
+		AC0784D2E373A0FF4111FF5D /* Pods_iOS_HopifyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1199EBA8D3C205809B261993 /* Pods_iOS_HopifyUITests.framework */; };
+		CC32E8DF2038D87E0058BDE9 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC32E8DE2038D87E0058BDE9 /* MapsViewController.swift */; };
+		CC46F5222038AD24004F024E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC46F5212038AD24004F024E /* AppDelegate.swift */; };
+		CC46F5242038AD24004F024E /* LikesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC46F5232038AD24004F024E /* LikesViewController.swift */; };
+		CC46F5272038AD24004F024E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC46F5252038AD24004F024E /* Main.storyboard */; };
+		CC46F5292038AD24004F024E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC46F5282038AD24004F024E /* Assets.xcassets */; };
+		CC46F52C2038AD24004F024E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC46F52A2038AD24004F024E /* LaunchScreen.storyboard */; };
+		CC46F5372038AD24004F024E /* iOS_HopifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC46F5362038AD24004F024E /* iOS_HopifyTests.swift */; };
+		CC46F5422038AD24004F024E /* iOS_HopifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC46F5412038AD24004F024E /* iOS_HopifyUITests.swift */; };
+		CC46F5502038ADAC004F024E /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC46F54F2038ADAC004F024E /* CellView.swift */; };
+		CC46F5522038B153004F024E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC46F5512038B153004F024E /* SettingsViewController.swift */; };
+		CCBF43182038F4600029C5AC /* HopifyNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBF43172038F4600029C5AC /* HopifyNetwork.swift */; };
+		CCF9B7722038DEF1001E1DFE /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF9B7712038DEF1001E1DFE /* ModalViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CC46F5332038AD24004F024E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC46F5162038AD24004F024E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC46F51D2038AD24004F024E;
+			remoteInfo = iOS_Hopify;
+		};
+		CC46F53E2038AD24004F024E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC46F5162038AD24004F024E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC46F51D2038AD24004F024E;
+			remoteInfo = iOS_Hopify;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		10F4858A9A6C67065458B4D5 /* Pods_iOS_HopifyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_HopifyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1199EBA8D3C205809B261993 /* Pods_iOS_HopifyUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_HopifyUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4879FBD7AC2CA92ACA96CD7F /* Pods-iOS_HopifyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_HopifyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOS_HopifyTests/Pods-iOS_HopifyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7C740A9E083F6AC6C255F743 /* Pods-iOS_Hopify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Hopify.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOS_Hopify/Pods-iOS_Hopify.release.xcconfig"; sourceTree = "<group>"; };
+		7FDA3EFD8DCA6A0315586115 /* Pods_iOS_Hopify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_Hopify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C9580471B9AB5EF7FB6B8FD /* Pods-iOS_HopifyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_HopifyUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOS_HopifyUITests/Pods-iOS_HopifyUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		950B64B6774BBD8EEA3C32E0 /* Pods-iOS_HopifyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_HopifyUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOS_HopifyUITests/Pods-iOS_HopifyUITests.release.xcconfig"; sourceTree = "<group>"; };
+		AC3461B18E5CD616F5A2CB5F /* Pods-iOS_HopifyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_HopifyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOS_HopifyTests/Pods-iOS_HopifyTests.release.xcconfig"; sourceTree = "<group>"; };
+		CC32E8DE2038D87E0058BDE9 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
+		CC46F51E2038AD24004F024E /* iOS_Hopify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_Hopify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC46F5212038AD24004F024E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CC46F5232038AD24004F024E /* LikesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesViewController.swift; sourceTree = "<group>"; };
+		CC46F5262038AD24004F024E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CC46F5282038AD24004F024E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CC46F52B2038AD24004F024E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CC46F52D2038AD24004F024E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC46F5322038AD24004F024E /* iOS_HopifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOS_HopifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC46F5362038AD24004F024E /* iOS_HopifyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_HopifyTests.swift; sourceTree = "<group>"; };
+		CC46F5382038AD24004F024E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC46F53D2038AD24004F024E /* iOS_HopifyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOS_HopifyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC46F5412038AD24004F024E /* iOS_HopifyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_HopifyUITests.swift; sourceTree = "<group>"; };
+		CC46F5432038AD24004F024E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC46F54F2038ADAC004F024E /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
+		CC46F5512038B153004F024E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		CCBF43172038F4600029C5AC /* HopifyNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HopifyNetwork.swift; sourceTree = "<group>"; };
+		CCF9B7712038DEF1001E1DFE /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		E64C9E690B2B77B7B07AA5D6 /* Pods-iOS_Hopify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Hopify.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOS_Hopify/Pods-iOS_Hopify.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CC46F51B2038AD24004F024E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9F2AC287C2C414F180E9409 /* Pods_iOS_Hopify.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC46F52F2038AD24004F024E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7EC174ABDA9EFB631DC859A5 /* Pods_iOS_HopifyTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC46F53A2038AD24004F024E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC0784D2E373A0FF4111FF5D /* Pods_iOS_HopifyUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7B06CFFA54A2C427EAF9DB6C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7FDA3EFD8DCA6A0315586115 /* Pods_iOS_Hopify.framework */,
+				10F4858A9A6C67065458B4D5 /* Pods_iOS_HopifyTests.framework */,
+				1199EBA8D3C205809B261993 /* Pods_iOS_HopifyUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC46F5152038AD24004F024E = {
+			isa = PBXGroup;
+			children = (
+				CC46F5202038AD24004F024E /* iOS_Hopify */,
+				CC46F5352038AD24004F024E /* iOS_HopifyTests */,
+				CC46F5402038AD24004F024E /* iOS_HopifyUITests */,
+				CC46F51F2038AD24004F024E /* Products */,
+				F255135D8442262BCAB39392 /* Pods */,
+				7B06CFFA54A2C427EAF9DB6C /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		CC46F51F2038AD24004F024E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC46F51E2038AD24004F024E /* iOS_Hopify.app */,
+				CC46F5322038AD24004F024E /* iOS_HopifyTests.xctest */,
+				CC46F53D2038AD24004F024E /* iOS_HopifyUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC46F5202038AD24004F024E /* iOS_Hopify */ = {
+			isa = PBXGroup;
+			children = (
+				CC46F5212038AD24004F024E /* AppDelegate.swift */,
+				CC46F5232038AD24004F024E /* LikesViewController.swift */,
+				CCBF43172038F4600029C5AC /* HopifyNetwork.swift */,
+				CC46F54F2038ADAC004F024E /* CellView.swift */,
+				CCF9B7712038DEF1001E1DFE /* ModalViewController.swift */,
+				CC46F5252038AD24004F024E /* Main.storyboard */,
+				CC46F5282038AD24004F024E /* Assets.xcassets */,
+				CC46F52A2038AD24004F024E /* LaunchScreen.storyboard */,
+				CC46F52D2038AD24004F024E /* Info.plist */,
+				CC46F5512038B153004F024E /* SettingsViewController.swift */,
+				CC32E8DE2038D87E0058BDE9 /* MapsViewController.swift */,
+			);
+			path = iOS_Hopify;
+			sourceTree = "<group>";
+		};
+		CC46F5352038AD24004F024E /* iOS_HopifyTests */ = {
+			isa = PBXGroup;
+			children = (
+				CC46F5362038AD24004F024E /* iOS_HopifyTests.swift */,
+				CC46F5382038AD24004F024E /* Info.plist */,
+			);
+			path = iOS_HopifyTests;
+			sourceTree = "<group>";
+		};
+		CC46F5402038AD24004F024E /* iOS_HopifyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CC46F5412038AD24004F024E /* iOS_HopifyUITests.swift */,
+				CC46F5432038AD24004F024E /* Info.plist */,
+			);
+			path = iOS_HopifyUITests;
+			sourceTree = "<group>";
+		};
+		F255135D8442262BCAB39392 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E64C9E690B2B77B7B07AA5D6 /* Pods-iOS_Hopify.debug.xcconfig */,
+				7C740A9E083F6AC6C255F743 /* Pods-iOS_Hopify.release.xcconfig */,
+				4879FBD7AC2CA92ACA96CD7F /* Pods-iOS_HopifyTests.debug.xcconfig */,
+				AC3461B18E5CD616F5A2CB5F /* Pods-iOS_HopifyTests.release.xcconfig */,
+				8C9580471B9AB5EF7FB6B8FD /* Pods-iOS_HopifyUITests.debug.xcconfig */,
+				950B64B6774BBD8EEA3C32E0 /* Pods-iOS_HopifyUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CC46F51D2038AD24004F024E /* iOS_Hopify */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC46F5462038AD24004F024E /* Build configuration list for PBXNativeTarget "iOS_Hopify" */;
+			buildPhases = (
+				3D749435483C53A6D2BBEDEE /* [CP] Check Pods Manifest.lock */,
+				CC46F51A2038AD24004F024E /* Sources */,
+				CC46F51B2038AD24004F024E /* Frameworks */,
+				CC46F51C2038AD24004F024E /* Resources */,
+				0E4F4E2820F1AEBC9B48FB45 /* [CP] Embed Pods Frameworks */,
+				37E9EAF23CF24FA8172B70DA /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iOS_Hopify;
+			productName = iOS_Hopify;
+			productReference = CC46F51E2038AD24004F024E /* iOS_Hopify.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CC46F5312038AD24004F024E /* iOS_HopifyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC46F5492038AD24004F024E /* Build configuration list for PBXNativeTarget "iOS_HopifyTests" */;
+			buildPhases = (
+				BC4E3D83A863A7C506E4BB18 /* [CP] Check Pods Manifest.lock */,
+				CC46F52E2038AD24004F024E /* Sources */,
+				CC46F52F2038AD24004F024E /* Frameworks */,
+				CC46F5302038AD24004F024E /* Resources */,
+				5184FEC5925DB8C946949144 /* [CP] Embed Pods Frameworks */,
+				F82D1799F1A12DD7A5DF0DE7 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC46F5342038AD24004F024E /* PBXTargetDependency */,
+			);
+			name = iOS_HopifyTests;
+			productName = iOS_HopifyTests;
+			productReference = CC46F5322038AD24004F024E /* iOS_HopifyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CC46F53C2038AD24004F024E /* iOS_HopifyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC46F54C2038AD24004F024E /* Build configuration list for PBXNativeTarget "iOS_HopifyUITests" */;
+			buildPhases = (
+				B7420AE855EAA1127B05D34B /* [CP] Check Pods Manifest.lock */,
+				CC46F5392038AD24004F024E /* Sources */,
+				CC46F53A2038AD24004F024E /* Frameworks */,
+				CC46F53B2038AD24004F024E /* Resources */,
+				E3B813A6E582B47654AF6230 /* [CP] Embed Pods Frameworks */,
+				36053CDD6698B886E67C1C2E /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC46F53F2038AD24004F024E /* PBXTargetDependency */,
+			);
+			name = iOS_HopifyUITests;
+			productName = iOS_HopifyUITests;
+			productReference = CC46F53D2038AD24004F024E /* iOS_HopifyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CC46F5162038AD24004F024E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Bart Chrzaszcz";
+				TargetAttributes = {
+					CC46F51D2038AD24004F024E = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					CC46F5312038AD24004F024E = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = CC46F51D2038AD24004F024E;
+					};
+					CC46F53C2038AD24004F024E = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = CC46F51D2038AD24004F024E;
+					};
+				};
+			};
+			buildConfigurationList = CC46F5192038AD24004F024E /* Build configuration list for PBXProject "iOS_Hopify" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CC46F5152038AD24004F024E;
+			productRefGroup = CC46F51F2038AD24004F024E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CC46F51D2038AD24004F024E /* iOS_Hopify */,
+				CC46F5312038AD24004F024E /* iOS_HopifyTests */,
+				CC46F53C2038AD24004F024E /* iOS_HopifyUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CC46F51C2038AD24004F024E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC46F52C2038AD24004F024E /* LaunchScreen.storyboard in Resources */,
+				CC46F5292038AD24004F024E /* Assets.xcassets in Resources */,
+				CC46F5272038AD24004F024E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC46F5302038AD24004F024E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC46F53B2038AD24004F024E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0E4F4E2820F1AEBC9B48FB45 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-iOS_Hopify/Pods-iOS_Hopify-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOS_Hopify/Pods-iOS_Hopify-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		36053CDD6698B886E67C1C2E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOS_HopifyUITests/Pods-iOS_HopifyUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		37E9EAF23CF24FA8172B70DA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-iOS_Hopify/Pods-iOS_Hopify-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOS_Hopify/Pods-iOS_Hopify-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3D749435483C53A6D2BBEDEE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-iOS_Hopify-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5184FEC5925DB8C946949144 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOS_HopifyTests/Pods-iOS_HopifyTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B7420AE855EAA1127B05D34B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-iOS_HopifyUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BC4E3D83A863A7C506E4BB18 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-iOS_HopifyTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3B813A6E582B47654AF6230 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOS_HopifyUITests/Pods-iOS_HopifyUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F82D1799F1A12DD7A5DF0DE7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOS_HopifyTests/Pods-iOS_HopifyTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CC46F51A2038AD24004F024E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC32E8DF2038D87E0058BDE9 /* MapsViewController.swift in Sources */,
+				CC46F5242038AD24004F024E /* LikesViewController.swift in Sources */,
+				CC46F5222038AD24004F024E /* AppDelegate.swift in Sources */,
+				CCBF43182038F4600029C5AC /* HopifyNetwork.swift in Sources */,
+				CC46F5502038ADAC004F024E /* CellView.swift in Sources */,
+				CCF9B7722038DEF1001E1DFE /* ModalViewController.swift in Sources */,
+				CC46F5522038B153004F024E /* SettingsViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC46F52E2038AD24004F024E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC46F5372038AD24004F024E /* iOS_HopifyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC46F5392038AD24004F024E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC46F5422038AD24004F024E /* iOS_HopifyUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CC46F5342038AD24004F024E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC46F51D2038AD24004F024E /* iOS_Hopify */;
+			targetProxy = CC46F5332038AD24004F024E /* PBXContainerItemProxy */;
+		};
+		CC46F53F2038AD24004F024E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC46F51D2038AD24004F024E /* iOS_Hopify */;
+			targetProxy = CC46F53E2038AD24004F024E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CC46F5252038AD24004F024E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC46F5262038AD24004F024E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CC46F52A2038AD24004F024E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC46F52B2038AD24004F024E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CC46F5442038AD24004F024E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CC46F5452038AD24004F024E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CC46F5472038AD24004F024E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E64C9E690B2B77B7B07AA5D6 /* Pods-iOS_Hopify.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CE3VTACW36;
+				INFOPLIST_FILE = iOS_Hopify/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "bart.co.iOS-Hopify";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CC46F5482038AD24004F024E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C740A9E083F6AC6C255F743 /* Pods-iOS_Hopify.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CE3VTACW36;
+				INFOPLIST_FILE = iOS_Hopify/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "bart.co.iOS-Hopify";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CC46F54A2038AD24004F024E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4879FBD7AC2CA92ACA96CD7F /* Pods-iOS_HopifyTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CE3VTACW36;
+				INFOPLIST_FILE = iOS_HopifyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "bart.co.iOS-HopifyTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS_Hopify.app/iOS_Hopify";
+			};
+			name = Debug;
+		};
+		CC46F54B2038AD24004F024E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC3461B18E5CD616F5A2CB5F /* Pods-iOS_HopifyTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CE3VTACW36;
+				INFOPLIST_FILE = iOS_HopifyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "bart.co.iOS-HopifyTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS_Hopify.app/iOS_Hopify";
+			};
+			name = Release;
+		};
+		CC46F54D2038AD24004F024E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C9580471B9AB5EF7FB6B8FD /* Pods-iOS_HopifyUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CE3VTACW36;
+				INFOPLIST_FILE = iOS_HopifyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "bart.co.iOS-HopifyUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = iOS_Hopify;
+			};
+			name = Debug;
+		};
+		CC46F54E2038AD24004F024E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 950B64B6774BBD8EEA3C32E0 /* Pods-iOS_HopifyUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CE3VTACW36;
+				INFOPLIST_FILE = iOS_HopifyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "bart.co.iOS-HopifyUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = iOS_Hopify;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CC46F5192038AD24004F024E /* Build configuration list for PBXProject "iOS_Hopify" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC46F5442038AD24004F024E /* Debug */,
+				CC46F5452038AD24004F024E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC46F5462038AD24004F024E /* Build configuration list for PBXNativeTarget "iOS_Hopify" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC46F5472038AD24004F024E /* Debug */,
+				CC46F5482038AD24004F024E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC46F5492038AD24004F024E /* Build configuration list for PBXNativeTarget "iOS_HopifyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC46F54A2038AD24004F024E /* Debug */,
+				CC46F54B2038AD24004F024E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC46F54C2038AD24004F024E /* Build configuration list for PBXNativeTarget "iOS_HopifyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC46F54D2038AD24004F024E /* Debug */,
+				CC46F54E2038AD24004F024E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CC46F5162038AD24004F024E /* Project object */;
+}

@@ -1,12 +1,13 @@
 //
 //  AppDelegate.swift
-//  Hopify
+//  iOS_Hopify
 //
-//  Created by Bart Chrzaszcz on 2018-02-16.
+//  Created by Bart Chrzaszcz on 2018-02-17.
 //  Copyright © 2018 Bart Chrzaszcz. All rights reserved.
 //
 
 import UIKit
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        GMSPlacesClient.provideAPIKey("AIzaSyA1gepd5i3XZNsv5W7v8sywkokLSeFBBno")
         return true
     }
 

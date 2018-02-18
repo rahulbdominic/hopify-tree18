@@ -1,14 +1,14 @@
 //
-//  HopifyUITests.swift
-//  HopifyUITests
+//  iOS_HopifyUITests.swift
+//  iOS_HopifyUITests
 //
-//  Created by Bart Chrzaszcz on 2018-02-16.
+//  Created by Bart Chrzaszcz on 2018-02-17.
 //  Copyright © 2018 Bart Chrzaszcz. All rights reserved.
 //
 
 import XCTest
 
-class HopifyUITests: XCTestCase {
+class iOS_HopifyUITests: XCTestCase {
         
     override func setUp() {
         super.setUp()

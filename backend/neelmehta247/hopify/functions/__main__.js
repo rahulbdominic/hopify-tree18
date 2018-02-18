@@ -54,6 +54,16 @@ const placeids = (places = []) => {
   return placeidlist;
 }
 
+const pairs = (places = []) => {
+  mainlist = [];
+  for (i = 0; i < places.length; i++) {
+    for (j = 0; j < places.length; j++) {
+      mainlist.push([i, j]);
+    }
+  }
+  return mainlist;
+}
+
 const distances = async (places = [], hours, lat, lng) => {
   journeys = {};
 

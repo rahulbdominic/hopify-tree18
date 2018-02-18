@@ -24,7 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name="io.branch.referral.BranchApp">
+        android:name=".MainApplication">
         <activity
             android:name="com.treehacks.hopify.hopify.MainActivity"
             android:launchMode="singleTask">
@@ -35,7 +35,7 @@
 
             <!-- Branch URI scheme -->
             <intent-filter>
-                <data android:scheme="hopify" android:host="open" />
+                <data android:scheme="hopify" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
@@ -45,6 +45,7 @@
             android:name="com.treehacks.hopify.hopify.MapsActivity"
             android:launchMode="singleTask">
         </activity>
+
         <!-- Branch init -->
         <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_iotJ2wNFXCAlBkr903mKKcnaqsgYFWtB" />
         <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_acrT5sMx8CCcydy23YztkkoayBo1z2wH" />
@@ -57,6 +58,7 @@
                 <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
         </receiver>
+
         <!-- Maps -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"

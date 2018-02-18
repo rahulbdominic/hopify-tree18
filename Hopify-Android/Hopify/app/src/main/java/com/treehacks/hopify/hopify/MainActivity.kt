@@ -54,6 +54,17 @@ class MainActivity : AppCompatActivity(), Observer<OnboardingState> {
         viewModel.stateStream
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this)
+        branch.initSession { referringParams, error ->
+            if (error == null) {
+                Log.i("BRANCH_MY", referringParams.toString())
+                val uuid = referringParams.getString("uuid")
+
+                // knock yourself out
+            } else {
+                Log.i("BRANCH_MY", error.message)
+            }
+        }
+
     }
 
     public override fun onNewIntent(intent: Intent) {

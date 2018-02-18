@@ -56,6 +56,7 @@ class SettingsViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+        title = "Settings"
         price.text = "Price: $"
         radius.text = "Radius: \(data.radius / 1000)km"
         radiusSlider.value = Float(data.radius) / 1000.0

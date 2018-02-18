@@ -18,15 +18,7 @@ class MapsViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
 
     @IBAction func shareRoute(_ sender: Any) {
-        accessContacts()
-        // required: canonicalIdentifier or title
-        // recommended: title, contentDescription, imageUrl for social media cards
         let buo = BranchUniversalObject(canonicalIdentifier: "")
-        /*buo.canonicalUrl = "https://example.com/content/123"
-        buo.title = "Content 123 Title"
-        buo.contentDescription = "Content 123 Description \(Date())"
-        buo.imageUrl = "http://lorempixel.com/400/400/"
-        buo.keywords = ["awesome", "things"]*/
 
         // index on Apple Spotlight
         buo.locallyIndex = true
@@ -36,22 +28,6 @@ class MapsViewController: UIViewController, MKMapViewDelegate {
 
         let lp: BranchLinkProperties = BranchLinkProperties()
         lp.addControlParam("uuid", withValue: __uuid__)
-        /*lp.channel = "facebook"
-        lp.feature = "sharing"
-        lp.campaign = "content 123 launch"
-        lp.stage = "new user"
-        lp.tags = ["one", "two", "three"]
-
-        lp.addControlParam("$desktop_url", withValue: "http://example.com/desktop")
-        lp.addControlParam("$ios_url", withValue: "http://example.com/ios")
-        lp.addControlParam("$ipad_url", withValue: "http://example.com/ios")
-        lp.addControlParam("$android_url", withValue: "http://example.com/android")
-        lp.addControlParam("$match_duration", withValue: "2000")
-
-        lp.addControlParam("custom_data", withValue: "yes")
-        lp.addControlParam("look_at", withValue: "this")
-        lp.addControlParam("nav_to", withValue: "over here")
-        lp.addControlParam("random", withValue: UUID.init().uuidString)*/
 
         buo.getShortUrl(with: lp) { (url, error) in
             print(url ?? "")

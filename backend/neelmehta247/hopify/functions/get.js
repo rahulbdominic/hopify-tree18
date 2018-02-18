@@ -6,7 +6,7 @@ const lib = require('lib');
  * @returns {object}
  */
 module.exports = async (uuid, context) => {
-    const result = await lib.neelmehta247.firebase['@dev'].get('data', uuid);
+    const result = await lib.neelmehta247.firebase['@1.0.0'].get('data', uuid);
 
     return result;
 }

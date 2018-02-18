@@ -16,7 +16,7 @@ const DISTANCE_MATRIX_URL = 'https://maps.googleapis.com/maps/api/distancematrix
 * @returns {object}
 */
 module.exports = async (lat, lng, radius, maxPrice, hours, interests = [], context) => {
-    const result = await lib.neelmehta247.hopify['@dev'].maps(lat, lng, radius, maxPrice, interests);
+    const result = await lib.neelmehta247.hopify['@1.0.0'].maps(lat, lng, radius, maxPrice, interests);
 
     const prioritized = priorities(result).slice(0, hours);
     if (prioritized.length === 0) {
@@ -29,12 +29,12 @@ module.exports = async (lat, lng, radius, maxPrice, hours, interests = [], conte
     const edges = pairs(vertices.length);
     const edgeMap = await distances(prioritized);
 
-    const tps = await lib.neelmehta247.hopify['@dev'].tsp(vertices, edges, edgeMap);
+    const tps = await lib.neelmehta247.hopify['@1.0.0'].tsp(vertices, edges, edgeMap);
     const finalArray = tps.map(position => prioritized[parseInt(position)]);
     const docName = uuid();
 
     // Write to Firebase
-    await lib({bg: true}).neelmehta247.firebase['@dev']("data", docName.toString(), { data: finalArray });
+    await lib({bg: true}).neelmehta247.firebase['@1.0.0']("data", docName.toString(), { data: finalArray });
 
     return {
         uuid: docName,

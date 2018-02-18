@@ -54,6 +54,15 @@ module.exports = async (lat, lng, radius, maxPrice, hours, interests = [], conte
 
 const priorities = (places) => {
     places = places.filter(item => !!item);
+    const nameSet = new Set();
+    places = places.filter(item => {
+        if (!nameSet.has(item.name)) {
+            set.add(item.name);
+            return true;
+        } else {
+            return false;
+        }
+    });
     for (i = 0; i < places.length; i++) {
         const relevancy_rating = places.length - i;
         const count_score = places[i].count * 3;

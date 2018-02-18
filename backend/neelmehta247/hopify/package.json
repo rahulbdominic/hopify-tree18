@@ -15,7 +15,7 @@
   "stdlib": {
     "build": "faaslang",
     "name": "neelmehta247/hopify",
-    "timeout": 10000,
+    "timeout": 30000,
     "publish": true,
     "personalize": {
       "keys": [],

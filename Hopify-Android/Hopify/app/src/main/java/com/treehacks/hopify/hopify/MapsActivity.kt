@@ -28,7 +28,14 @@ import com.google.android.gms.maps.model.*
 import com.jakewharton.rxbinding2.view.clicks
 import com.treehacks.hopify.hopify.model.MapsViewModel
 import com.treehacks.hopify.hopify.server.DataParser
-import com.wafflecopter.multicontactpicker.MultiContactPicker
+import com.treehacks.hopify.hopify.server.HopifyApiManager
+import io.branch.indexing.BranchUniversalObject
+import io.branch.referral.Branch
+import io.branch.referral.BranchError
+import io.branch.referral.util.ContentMetadata
+import io.branch.referral.util.LinkProperties
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.subscribeBy
 import kotterknife.bindView
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -51,6 +58,7 @@ class MapsActivity :
     private val listViewButton by bindView<Button>(R.id.maps_list_view_button)
 
     private lateinit var mMap: GoogleMap
+    private val manager = HopifyApiManager()
     private lateinit var viewModel: MapsViewModel
 
     private lateinit var mLastLocation: Location
@@ -60,6 +68,8 @@ class MapsActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Branch.getAutoInstance(this)
+
         setContentView(R.layout.activity_map)
 
         viewModel = intent.extras.get(MAPS_VIEW_MODEL) as MapsViewModel
@@ -71,7 +81,29 @@ class MapsActivity :
 
     override fun onStart() {
         super.onStart()
+
+        Branch.getInstance().initSession(object : Branch.BranchReferralInitListener {
+            override fun onInitFinished(referringParams: JSONObject, error: BranchError?) {
+                if (error == null) {
+                    Log.e("BRANCH SDK", referringParams.toString())
+                    Log.e("BRANCH SDK", referringParams.toString())
+                } else {
+                    Log.e("BRANCH SDK", referringParams.toString())
+                    Log.e("BRANCH SDK", error.message)
+                }
+            }
+        }, this.intent.data, this)
+
         setupUiElements()
+    }
+
+    public override fun onNewIntent(intent: Intent) {
+        this.intent = intent
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Branch.getAutoInstance(this)
     }
 
     private fun setupUiElements() {
@@ -85,24 +117,43 @@ class MapsActivity :
         startActivityForResult(contactPickerIntent, REQUEST_CODE_PICK_CONTACT)
     }
 
+    private fun createBranchIoLinkAndPost(phone: String) {
+        val buo = BranchUniversalObject()
+                .setTitle("My plan")
+                .setContentDescription("Desc")
+                .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+                .setContentMetadata(ContentMetadata().addCustomMetadata("uuid", viewModel.id))
+
+        val lp = LinkProperties()
+                .setFeature("sharing")
+                .setCampaign("City Crawler")
+                .setStage("Sharing trip")
+                .addControlParameter("uuid", viewModel.id)
+
+        buo.generateShortUrl(this, lp, { url, error ->
+            if (error == null) {
+                manager.sendMessage(url, phone)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeBy(
+                                onError = { Log.i(LOG_TAG, it.message) },
+                                onComplete = {},
+                                onNext = { Log.i(LOG_TAG, it.string()) }
+                        )
+                Log.i("BRANCH SDK", "url: " + url)
+            }
+        })
+    }
+
     private fun handleContactPicked(data: Intent) {
         val cursor: Cursor
         try {
-            var phoneNo: String
-            var name: String
             val uri = data.data
-            
             cursor = contentResolver.query(uri, null, null, null, null)
             cursor.moveToFirst()
-            
-            val phoneIndex =cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
-            val nameIndex =cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
-            
-            phoneNo = cursor.getString(phoneIndex)
-            name = cursor.getString(nameIndex)
 
-            Log.d(LOG_TAG, "NAME: " + name)
-            Log.d(LOG_TAG, "PHONE: " + phoneNo)
+            val phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+            val phone = cursor.getString(phoneIndex)
+            createBranchIoLinkAndPost(phone)
 
             cursor.close()
         } catch (e: Exception) {
@@ -111,13 +162,14 @@ class MapsActivity :
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.v(LOG_TAG, "here1")
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_CODE_PICK_CONTACT) {
+                Log.v(LOG_TAG, "here")
                 handleContactPicked(data!!)
             }
         }
-
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

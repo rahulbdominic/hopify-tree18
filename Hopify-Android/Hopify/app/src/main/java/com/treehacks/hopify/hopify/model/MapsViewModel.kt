@@ -1,5 +1,6 @@
 package com.treehacks.hopify.hopify.model
 
+import com.treehacks.hopify.hopify.server.HopifyApiManager
 import com.treehacks.hopify.hopify.server.HopifyOnboardingResponse
 import java.io.Serializable
 
@@ -8,5 +9,6 @@ import java.io.Serializable
  */
 
 class MapsViewModel(private val responseData: HopifyOnboardingResponse) : Serializable {
+    val id by lazy { responseData.uuid }
     val data by lazy { responseData.data }
 }

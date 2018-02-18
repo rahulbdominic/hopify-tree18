@@ -4,6 +4,7 @@ import com.treehacks.hopify.hopify.apiBaseUrl
 import com.treehacks.hopify.hopify.model.OnboardingState
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
+import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -34,5 +35,9 @@ class HopifyApiManager {
 
     fun fetchData(uuid: String): Observable<HopifyOnboardingResponse> {
         return hopifyApi.fetchByUuid(uuid).subscribeOn(Schedulers.io())
+    }
+
+    fun sendMessage(url: String, phone: String): Observable<ResponseBody> {
+        return hopifyApi.postMessage(url, phone).subscribeOn(Schedulers.io())
     }
 }

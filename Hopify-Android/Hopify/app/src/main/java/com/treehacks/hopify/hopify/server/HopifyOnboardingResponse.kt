@@ -7,7 +7,7 @@ import java.io.Serializable
 class HopifyOnboardingResponse : Serializable {
     @SerializedName("uuid")
     @Expose
-    lateinit var uuid: String
+    var uuid: String = ""
 
     @SerializedName("data")
     @Expose

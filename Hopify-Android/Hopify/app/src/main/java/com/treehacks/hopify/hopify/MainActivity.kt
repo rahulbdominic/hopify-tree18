@@ -1,5 +1,6 @@
 package com.treehacks.hopify.hopify
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -12,14 +13,14 @@ import com.treehacks.hopify.hopify.model.Screens.*
 import com.treehacks.hopify.hopify.view.LoadingFragment
 import com.treehacks.hopify.hopify.view.OnboardingInterestSelectionFragment
 import com.treehacks.hopify.hopify.view.OnboardingQuestionnaireFragment
+import io.branch.referral.Branch
+import io.branch.referral.BranchError
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import android.content.Intent
-import io.branch.referral.BranchError
+import org.json.JSONObject
 import io.branch.indexing.BranchUniversalObject
-import io.branch.referral.Branch
-
+import io.branch.referral.util.LinkProperties
 
 
 class MainActivity : AppCompatActivity(), Observer<Screens> {
@@ -36,20 +37,22 @@ class MainActivity : AppCompatActivity(), Observer<Screens> {
         Branch.getAutoInstance(this)
     }
 
-    override fun onStart() {
+    public override fun onStart() {
         super.onStart()
-
         val branch = Branch.getInstance()
 
-        branch.initSession({ params, error ->
-            if (error == null) {
-                Log.i("BRANCH SDK", params.toString())
-            } else {
-                Log.i("BRANCH SDK", error.message)
+        branch.initSession(object : Branch.BranchUniversalReferralInitListener {
+            override fun onInitFinished(branchUniversalObject: BranchUniversalObject, linkProperties: LinkProperties, error: BranchError?) {
+                if (error == null) {
+                    Log.i("BRANCH_MY", branchUniversalObject.toString())
+                    Log.i("BRANCH_MY", linkProperties.toString())
+                } else {
+                    Log.i("BRANCH_MY", error.message)
+                }
             }
         }, this.intent.data, this)
 
-        viewModel.screenStream
+    viewModel.screenStream
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this)
     }

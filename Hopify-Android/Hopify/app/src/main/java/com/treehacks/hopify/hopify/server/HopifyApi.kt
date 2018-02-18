@@ -1,6 +1,7 @@
 package com.treehacks.hopify.hopify.server
 
 import io.reactivex.Observable
+import okhttp3.ResponseBody
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -9,7 +10,7 @@ import retrofit2.http.Query
  */
 
 interface HopifyApi {
-    @GET("hopify@1.1.3")
+    @GET("hopify@1.2.0")
     fun postData(
             @Query("interests") interests: List<String>,
             @Query("hours") hours: Int,
@@ -19,6 +20,9 @@ interface HopifyApi {
             @Query("maxPrice") maxPrice: Int
     ): Observable<HopifyOnboardingResponse>
 
-    @GET("hopify@1.1.3/get")
+    @GET("hopify@1.2.0/get")
     fun fetchByUuid(@Query("uuid") uuid: String): Observable<HopifyOnboardingResponse>
+
+    @GET("hopify@1.2.0/message")
+    fun postMessage(@Query("url") url: String, @Query("number") phone: String) : Observable<ResponseBody>
 }

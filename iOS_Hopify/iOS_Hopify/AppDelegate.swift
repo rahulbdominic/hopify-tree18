@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let nav1 = UINavigationController()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let mainView = storyboard.instantiateViewController(withIdentifier: "LikesViewController") as? LikesViewController
+        mainView?.title = "City Crawler"
         nav1.viewControllers = [mainView!]
         self.window!.rootViewController = nav1
         self.window?.makeKeyAndVisible()

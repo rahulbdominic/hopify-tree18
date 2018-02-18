@@ -31,4 +31,8 @@ class HopifyApiManager {
         )
                 .subscribeOn(Schedulers.io())
     }
+
+    fun fetchData(uuid: String): Observable<HopifyOnboardingResponse> {
+        return hopifyApi.fetchByUuid(uuid).subscribeOn(Schedulers.io())
+    }
 }

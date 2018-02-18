@@ -10,7 +10,7 @@ import io.reactivex.rxkotlin.subscribeBy
 class RouterViewModel {
     private val manager = HopifyApiManager()
 
-    private val refreshRelay: Relay<Unit> = PublishRelay.create<Unit>()
+    val deepLinkRelay: Relay<String> = PublishRelay.create<String>()
     val submitDataRelay: Relay<Unit> = PublishRelay.create<Unit>()
     val interestContinueClicked: Relay<List<Interest>> = PublishRelay.create<List<Interest>>()
     val questionnaireContinueClicked: Relay<QuestionnaireViewModel> = PublishRelay.create<QuestionnaireViewModel>()
@@ -19,10 +19,13 @@ class RouterViewModel {
 
     private val stateStream: Observable<OnboardingState>
         get() = Observable.mergeArray(
-                refreshRelay.map {
-                    // Make initial call
-                    // Default to onboarding for now
-                    state.withParams(currentScreen = Screens.ONBOARDING_INTEREST_SELECTION)
+                deepLinkRelay.flatMap {
+                    manager.fetchData(it).map {
+                        state.withParams(
+                                currentScreen = Screens.MAIN_MAP,
+                                hopifyOnboardingResponse = it
+                        )
+                    }.startWith(state.withParams(currentScreen = Screens.LOADING))
                 },
                 submitDataRelay.flatMap {
                     manager.postData(state).map {
@@ -30,7 +33,7 @@ class RouterViewModel {
                                 currentScreen = Screens.MAIN_MAP,
                                 hopifyOnboardingResponse = it
                         )
-                    }
+                    }.startWith(state.withParams(currentScreen = Screens.LOADING))
                 },
                 interestContinueClicked.map {
                     state.withParams(

@@ -9,7 +9,7 @@ import retrofit2.http.Query
  */
 
 interface HopifyApi {
-    @GET("hopify@1.0.0")
+    @GET("hopify@1.1.3")
     fun postData(
             @Query("interests") interests: List<String>,
             @Query("hours") hours: Int,
@@ -18,4 +18,7 @@ interface HopifyApi {
             @Query("radius") radius: Int,
             @Query("maxPrice") maxPrice: Int
     ): Observable<HopifyOnboardingResponse>
+
+    @GET("hopify@1.1.3/get")
+    fun fetchByUuid(@Query("uuid") uuid: String): Observable<HopifyOnboardingResponse>
 }

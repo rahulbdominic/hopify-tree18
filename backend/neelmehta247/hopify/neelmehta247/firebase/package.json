@@ -1,21 +1,17 @@
 {
-  "name": "hopify",
+  "name": "firebase",
   "version": "0.0.0",
   "description": "",
   "author": "neelmehta247 <neelmehta247@gmail.com>",
   "main": "functions/__main__.js",
   "dependencies": {
-    "axios": "^0.17.1",
-    "kruskal": "0.0.5",
-    "lib": "^3.0.1",
-    "lodash": "^4.17.5",
-    "uuid": "^3.2.1"
+    "firebase-admin": "^5.9.0"
   },
   "private": true,
   "stdlib": {
     "build": "faaslang",
-    "name": "neelmehta247/hopify",
-    "timeout": 30000,
+    "name": "neelmehta247/firebase",
+    "timeout": 10000,
     "publish": true,
     "personalize": {
       "keys": [],

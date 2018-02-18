@@ -1,4 +1,5 @@
 const lib = require('lib');
+const uuid = require('uuid/v4');
 
 /**
 * API to return recommendations for how to spend the night.
@@ -13,7 +14,13 @@ const lib = require('lib');
 module.exports = async (lat, lng, radius, maxPrice, hours, interests = [], context) => {
     const result = await lib.neelmehta247.hopify['@dev'].maps(lat, lng, radius, maxPrice, interests);
 
-    return priorities(result).slice(0, hours);
+    const prioritized = priorities(result).slice(0, hours);
+    const docName = uuid();
+
+    // Write to Firebase
+    await lib({bg: true}).neelmehta247.firebase['@dev']("data", docName.toString(), { data: prioritized });
+
+    return prioritized;
 };
 
 const priorities = (places = []) => {

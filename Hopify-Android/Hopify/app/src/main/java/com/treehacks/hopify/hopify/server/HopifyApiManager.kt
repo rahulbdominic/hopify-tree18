@@ -30,6 +30,9 @@ class HopifyApiManager {
                 data.radius!!,
                 data.maxPrice!!
         )
+                .doOnNext {
+                    print(it.data.toString())
+                }
                 .subscribeOn(Schedulers.io())
     }
 

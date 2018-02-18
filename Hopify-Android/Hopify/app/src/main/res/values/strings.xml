@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">Hopify</string>
     <string name="select_your_interests">What are you\nin for\ntonight?</string>
+    <string name="more_information">Looking good! \Just a few details</string>
     <string name="next">Next</string>
-    <string name="choose_a_start_location">Choose a start location</string>
+    <string name="choose_a_start_location">Where to begin?</string>
     <string name="location_placeholder">Location placeholder</string>
     <string name="select_pricerange_from_0_4_free_to_expensive">Select pricerange from 0-4(free to expensive)</string>
     <string name="share">Share</string>
     <string name="list_view">List View</string>
+    <string name="how_far_out_do_you_want_to_go">How far do you want to go? (kilometers)</string>
+    <string name="how_long_do_you_have">How long do you have? (hours)</string>
 </resources>

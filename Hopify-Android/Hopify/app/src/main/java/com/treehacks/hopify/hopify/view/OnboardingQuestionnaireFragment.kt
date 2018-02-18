@@ -5,6 +5,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +27,6 @@ import kotterknife.bindView
  */
 
 class OnboardingQuestionnaireFragment : Fragment() {
-    private val locationTitleTextView by bindView<TextView>(R.id.questionnaire_location_text_view)
     private val locationChooseButton by bindView<Button>(R.id.questionnaire_choose_location_button)
     private val radiusEditText by bindView<EditText>(R.id.questionnaire_radius_edit_text)
     private val hoursEditText by bindView<EditText>(R.id.questionnaire_hours_edit_text)
@@ -49,7 +49,7 @@ class OnboardingQuestionnaireFragment : Fragment() {
     private fun setUpUiElements() {
         viewModel = viewModel.withParams(
                 hours = hoursEditText.text.toString().toInt(),
-                radius = radiusEditText.text.toString().toInt(),
+                radius = radiusEditText.text.toString().toInt() * 1000,
                 maxPrice = priceSeekBar.progress
         )
         locationChooseButton.clicks().subscribe {
@@ -66,7 +66,7 @@ class OnboardingQuestionnaireFragment : Fragment() {
             viewModel = viewModel.withParams(hours = if (it.toString() == "") 0 else it.toString().toInt())
         }
         radiusEditText.textChanges().subscribe {
-            viewModel = viewModel.withParams(radius = if (it.toString() == "") 0 else it.toString().toInt())
+            viewModel = viewModel.withParams(radius = if (it.toString() == "") 0 else it.toString().toInt() * 1000)
         }
         priceSeekBar.changes().subscribe {
             viewModel = viewModel.withParams(maxPrice = it)
@@ -78,13 +78,29 @@ class OnboardingQuestionnaireFragment : Fragment() {
         }
     }
 
+    private fun toggleButtonColor() {
+        val pl = locationChooseButton.paddingLeft
+        val pt = locationChooseButton.paddingTop
+        val pr = locationChooseButton.paddingRight
+        val pb = locationChooseButton.paddingBottom
+
+        locationChooseButton.background =
+                ContextCompat.getDrawable(context, R.drawable.interests_tile_background_selected)
+
+        locationChooseButton.setPadding(pl, pt, pr, pb)
+        locationChooseButton.setTextColor(ContextCompat.getColor(context, R.color.grey))
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             when (resultCode) {
                 RESULT_OK -> {
                     val place = getPlace(context, data)
-                    locationTitleTextView.text = place.name
+                    locationChooseButton.text = place.name
+
+                    toggleButtonColor()
+
                     viewModel = viewModel.withParams(
                             lat = place.latLng.latitude,
                             lng = place.latLng.longitude

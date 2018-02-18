@@ -26,7 +26,7 @@
         android:theme="@style/AppTheme"
         android:name="io.branch.referral.BranchApp">
         <activity
-            android:name=".MainActivity"
+            android:name="com.treehacks.hopify.hopify.MainActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,16 +42,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MapsActivity"
+            android:name="com.treehacks.hopify.hopify.MapsActivity"
             android:launchMode="singleTask">
-
-            <!-- Branch URI scheme -->
-            <intent-filter>
-                <data android:scheme="hopify" android:host="open" />
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-            </intent-filter>
         </activity>
         <!-- Branch init -->
         <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_iotJ2wNFXCAlBkr903mKKcnaqsgYFWtB" />

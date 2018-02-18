@@ -13,13 +13,12 @@ class RouterViewModel {
 
     val deepLinkRelay: Relay<String> = PublishRelay.create<String>()
     val submitDataRelay: Relay<Unit> = PublishRelay.create<Unit>()
-    val loadingRelay: Relay<Unit> = PublishRelay.create<Unit>()
     val interestContinueClicked: Relay<List<Interest>> = PublishRelay.create<List<Interest>>()
     val questionnaireContinueClicked: Relay<QuestionnaireViewModel> = PublishRelay.create<QuestionnaireViewModel>()
 
-    private var state = OnboardingState()
+    private var state = OnboardingState(currentScreen = Screens.ONBOARDING_INTEREST_SELECTION)
 
-    private val stateStream: Observable<OnboardingState>
+    val stateStream: Observable<OnboardingState>
         get() = Observable.mergeArray(
                 deepLinkRelay.flatMap {
                     manager.fetchData(it).map {
@@ -37,7 +36,6 @@ class RouterViewModel {
                         )
                     }
                 },
-                loadingRelay.map { state.withParams(currentScreen = Screens.LOADING) },
                 interestContinueClicked.map {
                     state.withParams(
                             currentScreen = Screens.ONBOARDING_QUESTIONNAIRE,
@@ -53,12 +51,8 @@ class RouterViewModel {
                             radius = it.radius,
                             maxPrice = it.maxPrice
                     )
-                }
-        ).startWith(OnboardingState())
-
-    val screenStream: Observable<Screens>
-        get() = stateStream.map { it.currentScreen }
-                .startWith(Screens.ONBOARDING_INTEREST_SELECTION) // TODO(Rahul): Start with refresh later
+                }.startWith(OnboardingState(currentScreen = Screens.ONBOARDING_INTEREST_SELECTION))
+        )
 
     init {
         stateStream.subscribeBy(
@@ -74,6 +68,7 @@ class RouterViewModel {
     }
 
     fun getMapsActivityViewModel(): MapsViewModel {
+        print(state.hopifyOnboardingResponse.toString())
         return MapsViewModel(state.hopifyOnboardingResponse ?: HopifyOnboardingResponse())
     }
 }

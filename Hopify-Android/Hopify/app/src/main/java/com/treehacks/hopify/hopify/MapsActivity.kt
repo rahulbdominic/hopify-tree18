@@ -29,6 +29,7 @@ import com.jakewharton.rxbinding2.view.clicks
 import com.treehacks.hopify.hopify.model.MapsViewModel
 import com.treehacks.hopify.hopify.server.DataParser
 import com.treehacks.hopify.hopify.server.HopifyApiManager
+import com.treehacks.hopify.hopify.server.HopifyOnboardingResponse
 import io.branch.indexing.BranchUniversalObject
 import io.branch.referral.Branch
 import io.branch.referral.BranchError
@@ -72,7 +73,7 @@ class MapsActivity :
 
         setContentView(R.layout.activity_map)
 
-        viewModel = intent.extras.get(MAPS_VIEW_MODEL) as MapsViewModel
+        viewModel = MapsViewModel(intent.extras.get(MAPS_DATA) as HopifyOnboardingResponse)
 
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
@@ -109,6 +110,9 @@ class MapsActivity :
     private fun setupUiElements() {
         shareButton.clicks().subscribe {
             launchContactsPicker()
+        }
+        listViewButton.clicks().subscribe {
+
         }
     }
 
@@ -174,6 +178,7 @@ class MapsActivity :
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_json))
 
         if (viewModel.data.isEmpty())
             return
@@ -448,14 +453,13 @@ class MapsActivity :
     companion object {
         val LOG_TAG: String = MapsActivity::class.java.name
         private const val ZOOM_LEVEL = 11f
-        private const val MAPS_VIEW_MODEL = "MAPS_VIEW_MODEL_ID"
+        private const val MAPS_DATA = "MAPS_DATA_ID"
         private const val MY_PERMISSIONS_REQUEST_LOCATION = 99
         private const val REQUEST_CODE_PICK_CONTACT = 1
-        private const val MAX_PICK_CONTACT = 10
 
-        fun createIntent(context: Context, viewModel: MapsViewModel): Intent {
+        fun createIntent(context: Context, data: HopifyOnboardingResponse): Intent {
             val intent = Intent(context, MapsActivity::class.java)
-            intent.putExtra(MAPS_VIEW_MODEL, viewModel)
+            intent.putExtra(MAPS_DATA, data)
 
             return intent
         }

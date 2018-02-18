@@ -12,7 +12,45 @@ class LikesViewController: UIViewController, UITableViewDelegate {
     let disposeBag = DisposeBag()
     var selectedLikes: [String] = []
 
-    let placeTitles: Observable<[String]> = Observable.just([
+    var places = [
+        "accounting",
+        "airport",
+        "amusement_park",
+        "aquarium",
+        "art_gallery",
+        "bakery",
+        "bar",
+        "beauty_salon",
+        "bicycle_store",
+        "book_store",
+        "bowling_alley",
+        "bus_station",
+        "cafe",
+        "casino",
+        "church",
+        "clothing_store",
+        "department_store",
+        "doctor",
+        "florist",
+        "furniture_store",
+        "gym",
+        "hair_care",
+        "liquor_store",
+        "meal_delivery",
+        "meal_takeaway",
+        "movie_theater",
+        "museum",
+        "night_club",
+        "park",
+        "restaurant",
+        "shopping_mall",
+        "spa",
+        "stadium",
+        "subway_station",
+        "supermarket",
+        "train_station",
+        "zoo"]
+    let placeTitles: Observable<[String]> = Observable.just( [
         "accounting",
         "airport",
         "amusement_park",
@@ -65,8 +103,13 @@ class LikesViewController: UIViewController, UITableViewDelegate {
     private func setupCurrentQuestionObserver() {
         placeTitles
             .bind(to: likeTableView.rx.items) { (tableView, row, element) in
-                let cell = tableView.dequeueReusableCell(withIdentifier: "likeCell")!
-                cell.textLabel?.text = "\(element)"
+                let cell = tableView.dequeueReusableCell(withIdentifier: "likeCell") as! ChoiceCell
+                cell.titleLabel.text = "\(element)"
+                cell.cellImage.image = UIImage(named: "Icon-41")
+
+                //cell.cellImage?.image = UIImage(named: "Icon-40")
+
+                //cell.textLabel?.text = "\(element)"
                 return cell
             }
             .disposed(by: disposeBag)

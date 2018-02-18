@@ -18,12 +18,19 @@ class SettingsViewController: UIViewController {
 
     let myModalViewController = ModalViewController()
 
-    @IBOutlet weak var price: UILabel!
+    var blurEffectView: UIVisualEffectView!
+
     @IBOutlet weak var priceSlider: UISlider!
+    @IBOutlet weak var price: UILabel!
+
     @IBOutlet weak var radiusSlider: UISlider!
     @IBOutlet weak var radiusValue: UILabel!
+
+    @IBOutlet weak var timeSlider: UISlider!
+    @IBOutlet weak var timeLabel: UILabel!
+
     @IBOutlet weak var city: UILabel!
-    @IBOutlet weak var date: UIDatePicker!
+
     var cityName: String? = "" {
         didSet {
             city.text = cityName
@@ -50,7 +57,7 @@ class SettingsViewController: UIViewController {
         radiusSlider.value = Float(data.radius)
         setPriceLabel()
         city.text = data.city
-        date.date = data.time
+
     }
 
     // Present the Autocomplete view controller when the button is pressed.
@@ -58,6 +65,11 @@ class SettingsViewController: UIViewController {
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
         present(autocompleteController, animated: true, completion: nil)
+    }
+
+    @IBAction func timeValueChanged(_ sender: Any) {
+        data.time = Int(timeSlider.value)
+        timeLabel.text = "Time: \(timeSlider.value) hr\(Int(timeSlider.value) == 0 ? "" : "s")"
     }
 
     @IBAction func priceValueChanged(_ sender: Any) {
@@ -80,15 +92,11 @@ class SettingsViewController: UIViewController {
                 print("Latitude: \(map.latitude!)\nLongitude: \(map.longitude!)\nName: \(map.name!)\n\n")
             }
             self?.myModalViewController.dismiss(animated: true, completion: nil)
+            self?.blurEffectView.removeFromSuperview()
             controller?.dataPoints = mapList
-            //self?.present(controller!, animated: true, completion: nil)
             self?.navigationController?.pushViewController(controller!, animated: true)
         })
         .disposed(by: disposeBag)
-        /*let when = DispatchTime.now() + 7
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            self.present(controller!, animated: true, completion: nil)
-        }*/
     }
 
     func setPriceLabel() {
@@ -111,19 +119,13 @@ class SettingsViewController: UIViewController {
         myModalViewController.modalTransitionStyle = .coverVertical
 
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.alpha = 0.7
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
 
-        present(myModalViewController, animated: true, completion: nil)/*{
-            let when = DispatchTime.now() + 6
-            DispatchQueue.main.asyncAfter(deadline: when) {
-                print("done")
-                modalViewController.dismiss(animated: true, completion: nil)
-            }
-        })*/
+        present(myModalViewController, animated: true, completion: nil)
     }
 
 }

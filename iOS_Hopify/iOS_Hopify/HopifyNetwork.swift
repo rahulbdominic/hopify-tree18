@@ -33,7 +33,7 @@ struct Data {
     var cityLocation: CLLocation = initLoc()
     var lat: Double = 0
     var long: Double = 0
-    var time: Date = Date()
+    var time: Int = 5
     var price: Int = 0
     var radius: Int = 1000
 }
@@ -48,7 +48,7 @@ class HopifyNetwork {
 
     let disposeBag = DisposeBag()
     //let sourceStringURL = "https://neelmehta247.lib.id/hopify@dev/?lat=37.427475&lng=-122.1697190&radius=2000&interests=[%22cafe%22,%22bar%22,%22plumber%22]&maxPrice=4&hours=25"
-    let url = NSURLComponents(string: "https://neelmehta247.lib.id/hopify@1.0.0/")!
+    let url = NSURLComponents(string: "https://neelmehta247.lib.id/hopify@1.1.0/")!
 
     static let shared = HopifyNetwork()
 
@@ -65,7 +65,7 @@ class HopifyNetwork {
             getHoursQueryParam(data: data)
         ]
         url.queryItems = queryItemsList
-        var newURLString = url.string!.replacingOccurrences(of: "%5B", with: "[", options: .literal, range: nil).replacingOccurrences(of: "%5D", with: "]", options: .literal, range: nil)
+        let newURLString = url.string!.replacingOccurrences(of: "%5B", with: "[", options: .literal, range: nil).replacingOccurrences(of: "%5D", with: "]", options: .literal, range: nil)
          //newURLString = "https://neelmehta247.lib.id/hopify@dev/?lat=37.427475&lng=-122.1697190&radius=2000&interests=[%22cafe%22,%22bar%22,%22plumber%22]&maxPrice=4&hours=4"
 
         RxAlamofire.requestJSON(.get, newURLString)
@@ -137,7 +137,7 @@ extension HopifyNetwork {
     }
 
     func getHoursQueryParam(data: Data) -> URLQueryItem {
-        return URLQueryItem(name: "hours", value: String(5))
+        return URLQueryItem(name: "hours", value: String(data.time))
         // return URLQueryItem(name: "hours", value: json(from: 5 as AnyObject))
     }
 

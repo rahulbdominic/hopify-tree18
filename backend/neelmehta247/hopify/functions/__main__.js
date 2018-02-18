@@ -46,6 +46,14 @@ const priorities = (places = []) => {
     return places;
 }
 
+const placeids = (places = []) => {
+  placeidlist = [];
+  for(i = 0; i < places.length; i++) {
+    placeidlist.push(places[i].place_id);
+  }
+  return placeidlist;
+}
+
 const distances = async (places = [], hours, lat, lng) => {
   journeys = {};
 

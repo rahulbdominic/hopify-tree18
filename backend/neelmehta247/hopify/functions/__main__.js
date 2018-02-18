@@ -53,6 +53,7 @@ module.exports = async (lat, lng, radius, maxPrice, hours, interests = [], conte
 };
 
 const priorities = (places) => {
+    places = places.filter(item => !!item);
     for (i = 0; i < places.length; i++) {
         const relevancy_rating = places.length - i;
         console.log("places[i] at " + i + ": " + places[i]);

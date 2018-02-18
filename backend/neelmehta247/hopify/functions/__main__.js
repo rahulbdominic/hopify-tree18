@@ -19,6 +19,12 @@ module.exports = async (lat, lng, radius, maxPrice, hours, interests = [], conte
     const result = await lib.neelmehta247.hopify['@dev'].maps(lat, lng, radius, maxPrice, interests);
 
     const prioritized = priorities(result).slice(0, hours);
+    if (prioritized.length === 0) {
+        return {
+            "data": []
+        }
+    }
+
     const vertices = placeids(prioritized);
     const edges = pairs(vertices.length);
     const edgeMap = await distances(prioritized);
